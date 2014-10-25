@@ -2,10 +2,11 @@
 
 module.exports = function (grunt) {
 
-  grunt.loadNpmTasks('grunt-express-server');
-
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
+
+  // Load all grunt task
+  require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
     express: {
