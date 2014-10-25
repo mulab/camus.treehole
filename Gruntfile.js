@@ -49,6 +49,12 @@ module.exports = function (grunt) {
         "views/**/*.js",
         "routes/**/*.js"
       ]
+    },
+    mochaTest: {
+      options: {
+        reporter: 'spec'
+      },
+      src: ['test/**/*.spec.js']
     }
   });
 
@@ -64,6 +70,12 @@ module.exports = function (grunt) {
     }, 1500);
   });
 
+  grunt.registerTask('test', function(target) {
+    grunt.task.run([
+      'mochaTest'
+    ]);
+  });
+
   grunt.registerTask('serve', function (target) {
     grunt.task.run([
       'express:dev',
@@ -74,6 +86,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', [
-    'newer:jshint'
+    'newer:jshint',
+    'test'
   ]);
 };
