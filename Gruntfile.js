@@ -15,21 +15,49 @@ module.exports = function (grunt) {
       },
       dev: {
         options: {
-          script: 'bin/www',
+          script: 'app.js',
           debug: true
         }
-      },
-      prod: {
+      }
+    },
+    open: {
+      server: {
+        url: 'http://localhost:<%= express.options.port %>'
+      }
+    },
+    watch: {
+      express: {
+        files: [
+          'app.js',
+          'routes/**/*.js'
+        ],
+        tasks: ['express:dev', 'wait'],
         options: {
-          script: 'dist/server/app.js'
+          livereload: true,
+          nospawn: true //Without this option specified express won't be reloaded
         }
       }
     }
   });
 
+  // Used for delaying livereload until after server has restarted
+  grunt.registerTask('wait', function () {
+    grunt.log.ok('Waiting for server reload...');
+
+    var done = this.async();
+
+    setTimeout(function () {
+      grunt.log.writeln('Done waiting!');
+      done();
+    }, 1500);
+  });
+
   grunt.registerTask('serve', function (target) {
     grunt.task.run([
-      'express:dev'
+      'express:dev',
+      'wait',
+      'open',
+      'watch'
     ]);
   });
 

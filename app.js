@@ -57,5 +57,10 @@ app.use(function(err, req, res, next) {
     });
 });
 
+var server = require('http').createServer(app);
+server.listen(process.env.PORT || 3000, function () {
+  console.log('Express server listening');
+});
+
 
 module.exports = app;
