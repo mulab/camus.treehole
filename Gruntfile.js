@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 module.exports = function (grunt) {
 
@@ -37,6 +37,18 @@ module.exports = function (grunt) {
           nospawn: true //Without this option specified express won't be reloaded
         }
       }
+    },
+    jshint: {
+      options: {
+        jshintrc: ".jshintrc",
+        reporter: require('jshint-stylish')
+      },
+      all: [
+        "Gruntfile.js",
+        "app.js",
+        "views/**/*.js",
+        "routes/**/*.js"
+      ]
     }
   });
 
@@ -61,5 +73,7 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('default', []);
+  grunt.registerTask('default', [
+    'newer:jshint'
+  ]);
 };

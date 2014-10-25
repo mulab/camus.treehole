@@ -24,8 +24,10 @@
     "grunt-express-server": "~0.4.19",
     "grunt-open": "~0.2.3",
     "open": "~0.0.4",
+    "grunt-newer": "~0.8.0",
     "load-grunt-tasks": "~1.0.0",
-    "time-grunt": "~1.0.0"
+    "time-grunt": "~1.0.0",
+    "jshint-stylish": "~1.0.0"
   },
   "engines": {
     "node": ">=0.10.35"
