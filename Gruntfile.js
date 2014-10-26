@@ -47,7 +47,8 @@ module.exports = function (grunt) {
         "Gruntfile.js",
         "app.js",
         "views/**/*.js",
-        "routes/**/*.js"
+        "routes/**/*.js",
+        "config/**/*.js"
       ],
       test: {
         options: {
