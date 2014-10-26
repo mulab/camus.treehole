@@ -18,9 +18,13 @@ First install Node.js and then run
 $ npm install
 ```
 
+## Test
+Test your code.
+```bash
+$ grunt
+```
+
 ## Preview
 ```bash
 $ grunt serve
-or
-$ grunt serve --allow-remote # then you can use your phone visiting the site
 ```
