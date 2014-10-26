@@ -10,4 +10,6 @@ router.get('/status', function(req, res) {
   res.sendStatus(200);
 });
 
+require('./api/treehole')(router);
+
 module.exports = router;
