@@ -10,7 +10,7 @@
   "regexp": true,
   "undef": true,
   "smarttabs": true,
-  "asi": true,
+  "asi": false,
   "debug": true,
   "strict": true
 }
