@@ -28,3 +28,6 @@ $ grunt
 ```bash
 $ grunt serve
 ```
+
+## Code Format
+Please install plugin "editorconfig" to your code editor first [EditorConfig](http://editorconfig.org/)
