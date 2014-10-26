@@ -9,17 +9,17 @@
  */
 function tree_hole (router) {
   //POST /treehole: create tree-hole
-  router.post('/treehole', function(req, res) {
+  router.post('/holes', function(req, res) {
     res.status(500).send({error: 'not implement yet'});
   });
 
   //GET /treehole: get tree-holes
-  router.get('/treehole', function(req, res) {
+  router.get('/holes', function(req, res) {
     res.status(500).send({error: 'not implement yet'});
   });
 
-  // GET /treehole/:id get a tree-hole
-  router.get('/treehole/:id', function(req, res) {
+  // GET /treehole/:id get agit  tree-hole
+  router.get('/holes/:id', function(req, res) {
     res.status(500).send({error: 'not implement yet'});
   });
 }
