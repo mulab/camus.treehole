@@ -5,7 +5,6 @@
 
 var app = require('../app');
 var request = require('supertest');
-var helper = require('./helper');
 var id = 1;
 
 describe('Test API', function() {
