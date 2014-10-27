@@ -9,7 +9,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongo = require('mongodb');
 var index = require('../routes/index');
 var api = require('../routes/api');
 
@@ -30,11 +29,7 @@ module.exports = function (app, callback) {
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(cookieParser());
   app.use(express.static(path.join(config.root, 'public')));
-
-  var server = new mongo.Server(config.db_host, config.db_port, config.db_option);
-  var client = new mongo.MongoClient(server);
-
-  client.open(function (err, client) {
+  require('./db')(config, function(err, client){
     if (!err) {
       console.log("connect to mongodb://%s:%s/", config.db_host, config.db_port);
       console.log("options: %s", config.db_option);
