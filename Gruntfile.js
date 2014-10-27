@@ -9,6 +9,14 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
+    env: {
+      dev: {
+        NODE_ENV: 'development'
+      },
+      test: {
+        NODE_ENV: 'test'
+      }
+    },
     express: {
       options: {
         port: process.env.PORT || 9000
