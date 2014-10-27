@@ -14,7 +14,7 @@ describe('Test API', function() {
     db(config, function(err, client) {
       var db = client.db(config.db_name);
       var collection = db.collection('holes');
-      collection.insert({'title': 'test hole'}, {'title': 'test 2'}, function(err, result) {
+      collection.insert([{'title': 'test hole'}, {'title': 'test 2'}], function(err, result) {
         if(!err) {
           done();
         } else {
@@ -41,6 +41,19 @@ describe('Test API', function() {
     });
   });
 
+  describe('GET /api/v1/holes', function() {
+    it('should get tree-hole lists', function(done) {
+      request(app)
+        .get('/api/v1/holes')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          res.body.should.with.length(2);
+        })
+        .end(done);
+    });
+  });
+
   describe('POST /api/v1/holes', function() {
     it('should create tree-hole and returns id', function(done) {
       request(app)
@@ -51,22 +64,9 @@ describe('Test API', function() {
         .expect(201)
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          res.body.should.have.property('id');
+          res.body.should.have.property('_id');
           res.body.should.have.property('title', 'Test');
-          id = res.body.id;
-        })
-        .end(done);
-    });
-  });
-
-  describe('GET /api/v1/holes', function() {
-    it('should get tree-hole lists', function(done) {
-      request(app)
-        .get('/api/v1/holes')
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .expect(function(res) {
-          res.body.should.with.length(3);
+          id = res.body._id;
         })
         .end(done);
     });
