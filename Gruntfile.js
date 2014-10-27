@@ -62,6 +62,12 @@ module.exports = function (grunt) {
         reporter: 'spec'
       },
       src: ['test/**/*.spec.js']
+    },
+    mongo: {
+      all: {
+        command: 'mongod',
+        path: 'db'
+      }
     }
   });
 
@@ -77,14 +83,35 @@ module.exports = function (grunt) {
     }, 1500);
   });
 
+  var mongo;
+  grunt.registerTask('mongo', function(target) {
+    target = target || 'all';
+    var _ = require('lodash');
+    var config = grunt.config('mongo')[target];
+    config = config || grunt.config('mongo').all;
+    config = _.extend(config, grunt.config('mongo').all);
+    var spawn = require('child_process').spawn;
+    mongo = spawn(config.command, ['--dbpath', config.path], { stdio: ['pipe', 'pipe', process.stderr] });
+    mongo.unref();
+    process.on('exit', function(code) {
+      mongo.kill();
+    });
+    // wait for mongodb starting
+    grunt.task.run([
+      'wait'
+    ]);
+  });
+
   grunt.registerTask('test', function(target) {
     grunt.task.run([
+      'mongo:test',
       'mochaTest'
     ]);
   });
 
   grunt.registerTask('serve', function (target) {
     grunt.task.run([
+      'mongo:dev',
       'express:dev',
       'wait',
       'open',
