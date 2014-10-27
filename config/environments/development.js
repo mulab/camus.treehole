@@ -6,5 +6,9 @@
 var path = require('path');
 
 module.exports = {
-  root: path.resolve(__dirname, '../../')
+  root: path.resolve(__dirname, '../../'),
+  db_host: 'localhost',
+  db_port: 27017,
+  db_name: 'treeholes',
+  db_option: {auto_reconnect: true}
 };

@@ -1,5 +1,7 @@
 node_modules/
 bower_components/
+db/
+npm-debug.log
 
 ##################################
 # IDE, editor, system related
