@@ -5,13 +5,31 @@
 
 var app = require('../app');
 var request = require('supertest');
-var id = 1;
+var config = require('../config/environments/test');
+var db = require('../config/db');
+var id = '';
 
 describe('Test API', function() {
   before(function (done) {
-    setTimeout(function () {
-      done();
-    }, 1500);
+    db(config, function(err, client) {
+      var db = client.db(config.db_name);
+      var collection = db.collection('holes');
+      collection.insert({'title': 'test hole'}, {'title': 'test 2'}, function(err, result) {
+        if(!err) {
+          done();
+        } else {
+          console.log(err, result);
+        }
+      });
+    });
+  });
+
+  after(function (done) {
+    db(config, function(err, client) {
+      var db = client.db(config.db_name);
+      var collection = db.collection('holes');
+      collection.drop(done);
+    });
   });
 
   describe('GET /api/v1/status', function() {
@@ -48,7 +66,7 @@ describe('Test API', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          res.body.should.with.length(1);
+          res.body.should.with.length(3);
         })
         .end(done);
     });

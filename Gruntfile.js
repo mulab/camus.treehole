@@ -112,6 +112,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', function(target) {
     grunt.task.run([
+      'env:test',
       'mongo:test',
       'mochaTest'
     ]);
@@ -119,6 +120,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', function (target) {
     grunt.task.run([
+      'env:dev',
       'mongo:dev',
       'express:dev',
       'wait',
