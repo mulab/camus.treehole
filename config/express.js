@@ -9,12 +9,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var config = require('./environments/development');
 var mongo = require('mongodb');
 var index = require('../routes/index');
 var api = require('../routes/api');
 
 module.exports = function (app, callback) {
+  var config = require('./environments/' + app.get('env'));
+
   var swig = require('swig');
   // view engine setup
   app.engine('html', swig.renderFile);
