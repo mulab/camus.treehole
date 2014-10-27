@@ -37,7 +37,7 @@ module.exports = function (app, callback) {
     if (!err) {
       console.log("connect to mongodb://%s:%s/", config.db_host, config.db_port);
       console.log("options: %s", config.db_option);
-      var db = client.db("holes");
+      var db = client.db(config.db_name);
       if (app.get('env') === 'development') {
         db.collection('holes', {strict: true}, function (err, collection) {
           if (err) {
