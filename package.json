@@ -31,7 +31,8 @@
     "load-grunt-tasks": "~1.0.0",
     "time-grunt": "~1.0.0",
     "jshint-stylish": "~1.0.0",
-    "supertest": "~0.14.0"
+    "supertest": "~0.14.0",
+    "lodash" : "~2.4.1"
   },
   "engines": {
     "node": ">=0.10.35"
