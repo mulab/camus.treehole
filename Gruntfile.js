@@ -111,17 +111,22 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', function(target) {
+    grunt.task.run(['env:test']);
+    console.log(grunt.option('no-mongo'));
+    if (!grunt.option('no-mongo')) {
+      grunt.task.run(['mongo:test']);
+    }
     grunt.task.run([
-      'env:test',
-      'mongo:test',
       'mochaTest'
     ]);
   });
 
   grunt.registerTask('serve', function (target) {
+    grunt.task.run(['env:dev']);
+    if(!grunt.option('no-mongo')) {
+      grunt.task.run(['mongo:dev'])
+    }
     grunt.task.run([
-      'env:dev',
-      'mongo:dev',
       'express:dev',
       'wait',
       'open',
