@@ -124,7 +124,7 @@ module.exports = function (grunt) {
   grunt.registerTask('serve', function (target) {
     grunt.task.run(['env:dev']);
     if(!grunt.option('no-mongo')) {
-      grunt.task.run(['mongo:dev'])
+      grunt.task.run(['mongo:dev']);
     }
     grunt.task.run([
       'express:dev',
