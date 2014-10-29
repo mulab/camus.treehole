@@ -35,9 +35,12 @@ Please install plugin "editorconfig" to your code editor first [EditorConfig](ht
 
 ## Setup Guide for WebStorm IDE
 Create an empty project based on exist code. Then edit run/debug configurations.
-Create a new Node.js configuration, and fill "Javascript file" with "app.js".
-Also add environment variables PORT=9000 and ENV=development.
-If you are going to run test units, create a new Mocha configuration and select the test folder.
+Create a new Node.js configuration.
+Fill "Javascript file" with "app.js", and add environment variables PORT=9000 and ENV=development.
+
+If you are going to run test units, create a new Mocha configuration.
+Select the test folder for "test directory", and add an environment variable NODE_ENV=test.
+
 Note that MongoDB will not start automatically when you run your project.
 However, you can run MongoDB as a background OS service (google how to do this for your operating system).
 
