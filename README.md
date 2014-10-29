@@ -1,15 +1,15 @@
 Caμs Tree-hole Project
 ==============
 
-|  目录/文件   |      说明      |      包含       |
-| ------------ |:--------------:| --------------- |
-| routes/      | 路由Controller |                 |
-| views/       | 模板，基于Swig |                 |
-| public/      | js, css, img   |                 |
-| config/      | 中间件         |    所有的配置   |
-| test/        | 测试            |   *.spec.js    |
-| app.js       | 入口, 创建server |                 |
-| Gruntfile.js | Makefile       |                 |
+|  Directory/File  |         Description                   |         Content         |
+| ---------------- |:-------------------------------------:| ----------------------- |
+| routes/          | Controllers and routers               |                         |
+| views/           | Templates based on Swig               |                         |
+| public/          | static files (js, css, img)           |                         |
+| config/          | Middlewares                           | All configuration files |
+| test/            | Test units                            | *.spec.js               |
+| app.js           | Entry point (create express server)   |                         |
+| Gruntfile.js     | Makefile                              |                         |
 
 # Development Guide
 ## Preperation
@@ -17,7 +17,7 @@ First install Node.js and then run
 ```bash
 $ npm install
 ```
-Second install [mongodb](http://www.mongodb.org/)
+Second install [MongoDB](http://www.mongodb.org/)
 
 ## Test
 Test your code.
@@ -32,6 +32,14 @@ $ grunt serve
 
 ## Code Format
 Please install plugin "editorconfig" to your code editor first [EditorConfig](http://editorconfig.org/)
+
+## Setup Guide for WebStorm IDE
+Create an empty project based on exist code. Then edit run/debug configurations.
+Create a new Node.js configuration, and fill "Javascript file" with "app.js".
+Also add environment variables PORT=9000 and ENV=development.
+If you are going to run test units, create a new Mocha configuration and select the test folder.
+Note that MongoDB will not start automatically when you run your project.
+However, you can run MongoDB as a background OS service (google how to do this for your operating system).
 
 ## Guide
 
