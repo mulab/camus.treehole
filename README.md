@@ -35,11 +35,12 @@ Please install plugin "editorconfig" to your code editor first [EditorConfig](ht
 
 ## Guide
 
-Every request object has a filed `db` which stores an instance created by `MongoClient`'s `db` method.
+Use `config/db`'s `db()` method to get an instance of db
 
 ```js
+var db = require('../config/db').db();
 app.route('/test', function(req, res) {
-  req.db.collection('holes').find().toArray(function(err, result) {
+  db.collection('holes').find().toArray(function(err, result) {
     res.status(200).send(result);
   });
 });
