@@ -5,9 +5,10 @@
 
 var express = require('express');
 var router = express.Router();
+var db = require('../config/db').db();
 
 router.get('/status', function(req, res) {
-  req.db.collection('holes', {strict: true}, function(err, collection) {
+  db.collection('holes', {strict: true}, function(err, collection) {
     if(err) {
       console.log(err);
       res.sendStatus(500);

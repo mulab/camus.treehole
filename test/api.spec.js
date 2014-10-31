@@ -5,15 +5,14 @@
 
 var app = require('../app');
 var request = require('supertest');
-var config = require('../config/environments/test');
 var db = require('../config/db');
 var id = '';
 
 describe('Test API', function() {
   before(function (done) {
-    db(config, function(err, client) {
-      var db = client.db(config.db_name);
-      var collection = db.collection('holes');
+    db.connect(function(err, client){
+      var conn = db.db();
+      var collection = conn.collection('holes');
       collection.insert([{'title': 'test hole'}, {'title': 'test 2'}], function(err, result) {
         if(!err) {
           done();
@@ -25,11 +24,9 @@ describe('Test API', function() {
   });
 
   after(function (done) {
-    db(config, function(err, client) {
-      var db = client.db(config.db_name);
-      var collection = db.collection('holes');
-      collection.drop(done);
-    });
+    var conn = db.db();
+    var collection = conn.collection('holes');
+    collection.drop(done);
   });
 
   describe('GET /api/v1/status', function() {

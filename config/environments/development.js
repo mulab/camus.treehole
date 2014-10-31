@@ -10,5 +10,6 @@ module.exports = {
   db_host: 'localhost',
   db_port: 27017,
   db_name: 'treeholes',
-  db_option: {auto_reconnect: true}
+  db_option: {auto_reconnect: true},
+  seed: true
 };
