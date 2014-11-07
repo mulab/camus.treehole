@@ -23,7 +23,11 @@ function tree_hole(router) {
 
   //GET /treehole: get tree-holes
   router.get('/holes', function (req, res) {
-    db.collection('holes').find().toArray(function (err, docs) {
+    var number = req.param('number', 10);   //10 is the default value of number of holes to be retrieved
+    if(number > 100)   //A maximum of 100 holes can be retrieved
+      number = 100;
+    console.log(number);
+    db.collection('holes').find({}, {limit : number}).toArray(function (err, docs) {
       if (err) {
         console.log(err);
         throw err;
