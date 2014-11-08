@@ -10,3 +10,7 @@ a {
 .container {
   max-width: 730px;
 }
+
+.well {
+  word-break: break-all;
+}
