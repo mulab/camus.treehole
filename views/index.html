@@ -1,11 +1,18 @@
 {% extends 'layout.html' %}
 {% block title %} Welcome to {{ title }} {% endblock %}
 {% block content %}
-  <ul>
-    {% for hole in treeholes %}
-    <li>
-    {{ hole.text }}
-    </li>
+<div class="container">
+  <div class="row">
+    {% for x in [0, 1, 2] %}
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      {% for hole in treeholes %}
+      {% if (loop.index0 % 3) == x %}
+      <div class="well">
+        {{ hole.text }}
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
     {% endfor %}
-  </ul>
+  </div>
 {% endblock %}
