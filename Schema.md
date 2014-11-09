@@ -177,7 +177,15 @@ Configurations and descriptions of each channel.
   "code_name": "testChannel",
   "screen_name": "Test Channel",
   "description": "This is a channel for debugging!",
-  "sub_channels": [33, 35, 39]
+  "sub_channels": [33, 35, 39],
+  "options": {
+    "default_pulish_anonymous": true,
+    "default_comment_anonymous": false,
+    "default_feedbacks": [
+      {"type": "vote", "text": ":+1:"},
+      {"type": "vote", "text": ":-1:"}
+    ]
+  }
 }
 ```
 
