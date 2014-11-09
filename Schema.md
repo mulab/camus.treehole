@@ -11,7 +11,7 @@ From a hole document, you can go further find its comments, the others holes whi
   "_id": {
     "$oid": "545efe76a98d930012da6d4b"
   },
-  "publish_time": "Tue May 31 17:46:55 +0800 2011",
+  "publish_time": "Sun Nov 09 13:41:00 +0800 2014",
   "text": "Hello Treehole! :smile:",
   "images": [
     {"$pid": "1123hopafsd092asd3"}
@@ -58,7 +58,7 @@ However, to determine whether to show an anonymous user or real name, one should
   "post_time": "Sun Nov 09 17:56:55 +0800 2014",
   "text": "This is a simple comment",
   "hole": {
-    "$hid": 545efe76a98d930012da6d4b
+    "$hid": "545efe76a98d930012da6d4b"
   },
   "from_user": {
     "$uid": 2147483648
@@ -150,6 +150,8 @@ For each user, s/he can have an unique anonymous role under a hole.
 
 
 # Feedbacks Collection
+Currently we only provide one feedback formate: vote button.
+
 ```json
 {
   "$fid": "0987zvij12321sa",
@@ -164,6 +166,7 @@ For each user, s/he can have an unique anonymous role under a hole.
 | `type`      | This field contains an ID corrspond to a specific hole |
 | `text`      | Text to be display to user as a button |
 | `count`     | Count on user who press this feedback |
+
 
 # References Collection
 This collection is for the sake of reverse reference searching: find who are my referrers.
