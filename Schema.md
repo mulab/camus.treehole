@@ -112,6 +112,12 @@ Following is how documents are stored in database.
   "text": "楼主"
 }
 ```
+| Field       | Description |
+| ----------- | ----------- |
+| `user`      | The real user behind this role |
+| `hole`      | Under which hole the role is available |
+| `avatar`    | Reference to a picture to be displayed as an avatar |
+| `text`      | Name to distinguish this role from others |
 
 # Feedbacks Collection
 ```json
