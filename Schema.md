@@ -67,10 +67,33 @@ Following is how documents are stored in database.
   "join_time": "Tue May 10 23:46:55 +0800 2011",
   "code_name": "xiao_wang",
   "screen_name": "王霸之气",
-  "thu_account": {},
-  "wechat_account": {},
-  "renren_account": {},
-  "weibo_account": {}
+  "contact_info": {
+    "email": "xiao.wang@163.com",
+    "mobile": "112341234432"
+  },
+  "links": [
+    {"url": "http://xiaowang.io", "text": "个人博客"},
+    {"url": "http://linkedin.com/xiaowang"}
+  ],
+  "tsinghua_account": {
+    "student_number": "2014311111",
+    "student_id": "xiaowang14",
+    "real_name": "小王",
+    "student_type": "博士",
+    "gender": "男",
+    "department": "交叉信息研究院",
+    "email": "xiao.wang@gmail.com",
+    "mobile": "+8612341234432"
+  },
+  "wechat_account": {
+  },
+  "renren_account": {
+  },
+  "weibo_account": {
+    "uid": "12341234",
+    "expires_in": "1234",
+    "access_token": "ACCESS_TOKEN"
+  }
 }
 ```
 
