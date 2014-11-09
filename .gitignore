@@ -1,0 +1,14 @@
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Database files
+db/
+
+# node files
+/node_modules
+
+# bower files
+/public/bower_components
