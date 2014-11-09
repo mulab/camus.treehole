@@ -93,23 +93,16 @@ Following is how documents are stored in database.
 # Feedbacks Collection
 ```json
 {
-  "hole": {
-    "$hid": "545efe76a98d930012da6d4b"
-  },
-  "status": [
-    {
-      "type": "vote",
-      "text": "like",
-      "count": 10
-    },
-    {
-      "type": "vote",
-      "text": "dislike",
-      "count": 10
-    }
-  ]
+    "type": "vote",
+    "text": "dislike",
+    "count": 10
 }
 ```
+| Field       | Description |
+| ----------- | ----------- |
+| `type`      | This field contains an ID corrspond to a specific hole |
+| `text`      | Text to be display to user as a button |
+| `count`     | Count on user who press this feedback |
 
 # References Collection
 ```json
