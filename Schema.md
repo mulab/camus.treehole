@@ -168,6 +168,20 @@ Currently we only provide one feedback formate: vote button.
 | `count`     | Count on user who press this feedback |
 
 
+# Channels Collection
+Configurations and descriptions of each channel.
+
+```json
+{
+  "channel_number": 3,
+  "code_name": "testChannel",
+  "screen_name": "Test Channel",
+  "description": "This is a channel for debugging!"
+  "sub_channels": [33, 35, 39]
+}
+```
+
+
 # References Collection
 This collection is for the sake of reverse reference searching: find who are my referrers.
 
