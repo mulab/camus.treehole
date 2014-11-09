@@ -168,7 +168,7 @@ A single Hole object with all its details
 ### Retrieve a Hole [GET]
 + Response 200 (application/json)
 
-        [Hole][]
+    [Hole][]
 
 + Response 404 (application/json)
 
@@ -182,9 +182,18 @@ A single Hole object with all its details
 + Model (application/json)
     
         [
-            { "user": "user4", "text": "this is a comment" },
-            { "user": "user5", "text": "this is a comment, too" },
-            { "user": "user6", "text": "this is a comment, as well" }
+            {
+                "hole_id": "545efe76a98d930012da6d4b",
+                "from_user": "2147483648",
+                "reply_to": "545e28a80000000000000000"
+                "text": "this is a comment",
+            },
+            {
+                "hole_id": "545efe76a98d930012da6d4a",
+                "from_user": "2147483648",
+                "reply_to": "545e28a80000000000000000"
+                "text": "this is another comment",
+            },
         ]
 
 ### Retrive comments of a Hole [GET]
