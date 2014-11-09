@@ -342,4 +342,70 @@ Channels related resources of the **Treehole API**
 
 ## Channels Collection [/channels]
 
++ Model
 
+        [
+            {
+                "channel_id": 3,
+                "code_name": "testChannel",
+                "screen_name": "Test Channel",
+                "description": "This is a channel for debugging!",
+                "sub_channels": [33, 35, 39],
+                "options": {
+                    "default_pulish_anonymous": true,
+                    "default_comment_anonymous": false,
+                    "default_feedbacks": [
+                        {"type": "vote", "text": ":+1:"},
+                        {"type": "vote", "text": ":-1:"}
+                    ]
+                }
+            },
+            {
+                "channel_id": 5,
+                "code_name": "testChannel2",
+                "screen_name": "Test Channel2",
+                "description": "This is a channel for debugging!",
+                "sub_channels": [33, 35, 39],
+                "options": {
+                    "default_pulish_anonymous": true,
+                    "default_comment_anonymous": false,
+                    "default_feedbacks": [
+                        {"type": "vote", "text": "like"},
+                        {"type": "vote", "text": "dislike"}
+                    ]
+                }
+            }
+        ]
+
+### Retrive a list of channels [GET]
+
++ Response 200 (application/json)
+    [Channels Collection][]
+
+## Channel [/channels/{id}]
+
++ Model
+
+        {
+            "channel_id": 3,
+            "code_name": "testChannel",
+            "screen_name": "Test Channel",
+            "description": "This is a channel for debugging!",
+            "sub_channels": [33, 35, 39],
+            "options": {
+                "default_pulish_anonymous": true,
+                "default_comment_anonymous": false,
+                "default_feedbacks": [
+                    {"type": "vote", "text": ":+1:"},
+                    {"type": "vote", "text": ":-1:"}
+                ]
+            }
+        }
+
+### Retrive a channel [GET]
+
++ Response 200 (application/json)
+    [Channel][]
+
+### Remove a channel [DELETE]
++ Response 204
