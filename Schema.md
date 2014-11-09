@@ -19,6 +19,11 @@ Following is how documents are stored in database.
     {"$fid": "apoi123209z8ah2"},
     {"$fid": "a9x7jj1gh2kjsj0"}
   ],
+  "references": [
+    {"$hid": "545efe74a98d930013da8c02"},
+    {"$hid": "545efe74a98d930013da8c03"},
+    {"url": "http://github.com/mulab", "text": "Lab mU"}
+  ],
   "options": {
     "anonymous": true,
     "channel": 3
@@ -37,9 +42,9 @@ Following is how documents are stored in database.
 ``` json
 {
   "_id": {
-    "$oid": "545efe76a98d930012da6d4b"
+    "$oid": "545f28a80000000000000000"
   },
-  "post_time": "Tue May 31 17:56:55 +0800 2011",
+  "post_time": "Sun Nov 09 17:56:55 +0800 2014",
   "text": "This is a simple comment",
   "from_user": {
     "$uid": 2147483648
@@ -122,9 +127,10 @@ Following is how documents are stored in database.
 # Feedbacks Collection
 ```json
 {
-    "type": "vote",
-    "text": "dislike",
-    "count": 10
+  "$fid": "0987zvij12321sa",
+  "type": "vote",
+  "text": "like",
+  "count": 10
 }
 ```
 | Field       | Description |
