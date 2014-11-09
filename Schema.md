@@ -11,7 +11,9 @@ Following is how documents are stored in database.
   "images": [
     {"$pid": "1123hopafsd092asd3"}
   ],
-  "$uid": 109823742,
+  "user": {
+    "$uid": 109823742
+  },
   "feedbacks": [
     {"$fid": "0987zvij12321sa"},
     {"$fid": "apoi123209z8ah2"},
@@ -75,8 +77,12 @@ Following is how documents are stored in database.
 # Roles Collection
 ```json
 {
-  "$uid": 109823742,
-  "$hid": "545efe76a98d930012da6d4b",
+  "user": {
+    "$uid": 109823742
+  },
+  "hole": {
+    "$hid": "545efe76a98d930012da6d4b"
+  },
   "avatar": {
     "$pid": "19208asfio102h9x21"
   },
