@@ -173,7 +173,7 @@ Configurations and descriptions of each channel.
 
 ```json
 {
-  "channel_number": 3,
+  "channel_id": 3,
   "code_name": "testChannel",
   "screen_name": "Test Channel",
   "description": "This is a channel for debugging!",
