@@ -176,7 +176,7 @@ Configurations and descriptions of each channel.
   "channel_number": 3,
   "code_name": "testChannel",
   "screen_name": "Test Channel",
-  "description": "This is a channel for debugging!"
+  "description": "This is a channel for debugging!",
   "sub_channels": [33, 35, 39]
 }
 ```
