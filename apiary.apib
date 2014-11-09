@@ -16,7 +16,59 @@ Monitor of API services.
 # Group Holes
 Holes related resources of the **Treehole API**
 
-## Holes Collection [/holes{?amount}]
+## Holes Collection [/holes{?since_id,before_id,page,count}]
+
++ Parameters
+    + since\_id (optional, string) ... return holes lager than since_id (i.e. later
+    than since_id).
+    
+    + before\_id (optional, string) ... return holes smaller than before_id (i.e. 
+    before than since_id).
+
++ Model (application/json)
+    
+    + Headers
+    
+            <Status>: 200
+    
+    + Body
+
+            [
+                {
+                    "id": "545efe76a98d930012da6d4b",
+                    "user": "109823742",
+                    "created_time": "Tue May 31 17:46:55 +0800 2011",
+                    "text": "Hello Treehole! :smile:",
+                    "channel": "blackhole",
+                    "images": [
+                        "1123hopafsd092asd3",
+                        "1123hopafsd092asd4",
+                    ],
+                    "comments_count": 5,
+                    "repost_count": 3,
+                    "feedbacks": [
+                        { "type": "vote", "text": "like", "count": 5 },
+                        { "type": "vote", "text": "dislike", "count": 10 },
+                    ],
+                },
+                {
+                    "id": "545efe76a98d930012da6d5a",
+                    "user": "109823742",
+                    "created_time": "Tue May 31 17:46:55 +0800 2011",
+                    "text": "To test whether treehole can work",
+                    "channel": "blackhole",
+                    "images": [
+                        "1123hopafsd092asd3",
+                        "1123hopafsd0920ad4",
+                    ],
+                    "comments_count": 5,
+                    "repost_count": 3,
+                    "feedbacks": [
+                        { "type": "vote", "text": "like", "count": 5 },
+                        { "type": "vote", "text": "dislike", "count": 10 },
+                    ],
+                },
+            ]
 
 ### List all Holes [GET]
 Retrive a list of holes by sorted by method specified in parameters(time by
@@ -24,71 +76,44 @@ default). 100 at most, and 10 by default. If more than 100 been requested,
 an error message will be sent. "number" in request specify thethe number
 of holes to get.
 
-+ Parameters
-    + amount (optional, string) ... number of holes to get. 
-    100 at most, and 10 by default.
-    If more than 100 been requested, an error message will be sent.
-    "amount" in request specify thethe number of holes to get.
-
-+ Model (application/json)
-
-        [
-            {
-                "_id": "1",
-                "user": "user1",
-                "channel": "blackhole",
-                "text": "Jogging in park",
-                "images": ["2", "3", "4"],
-                "feedback_counters": [4, 1, 2],
-                "count_comments": 5,
-                "count_repost": 3
-            },
-            {
-                "_id": "2",
-                "user": "user2",
-                "channel": "blackhole",
-                "text": "Pick-up posters from post-office",
-                "images": ["1", "5", "7"],
-                "feedback_counters": [4, 1, 2],
-                "count_comments": 5,
-                "count_repost": 3
-            }
-        ]
-
 + Response 200 (application/json)
 
     [Holes Collection][]
 
-+ Response 400 (application/json)
-
-        { "message": "exceed the max number of holes can retrive" }
 
 ### Create a Hole [POST]
 + Request (application/json)
 
         {
-            "user": "user3",
+            "user": "109823742",
             "channel": "blackhole",
             "text": "Buy cheese and bread for breakfast.",
-            "images": ["9"]
+            "images": ["1123hopafsd0920ad4"]
         }
 
 + Response 201 (application/json)
 
         {
-            "_id": "2",
-            "user": "user3",
-            "channel": "blackhole",
+            "id": "545efe76a98d930012da6d5a",
+            "user": "109823742",
+            "created_time": "Tue May 31 17:46:55 +0800 2011",
             "text": "Buy cheese and bread for breakfast.",
-            "image":["9"],"feedback_counters": [0,0,0],
-            "count_comments": "0",
-            "count_repost": "0"
-        }
+            "channel": "blackhole",
+            "images": [
+                "1123hopafsd0920ad4",
+            ],
+            "comments_count": 0,
+            "repost_count": 0,
+            "feedbacks": [
+                { "type": "vote", "text": "like", "count": 0 },
+                { "type": "vote", "text": "dislike", "count": 0 },
+            ],
+        },
 
 + Request (application/json)
 
         {
-            "user": "user10",
+            "user": "545efe76a98d930013da6d5a",
             "channel": "blackhole",
             "text": "Buy cheese and bread for breakfast.",
             "images": ["9"]
@@ -120,21 +145,30 @@ A single Hole object with all its details
 
 + Model (application/json)
 
-        {
-            "_id": "1",
-            "user": "user1",
-            "channel": "blackhole",
-            "text": "Jogging in park",
-            "images": ["2", "3", "4"],
-            "feedback_counters": [4, 1, 2],
-            "count_comments": 5,
-            "count_repost": 3
-        }
+    + Body
+    
+            {
+                "id": "545efe76a98d930012da6d4b",
+                "user": "109823742",
+                "created_time": "Tue May 31 17:46:55 +0800 2011",
+                "text": "Hello Treehole! :smile:",
+                "channel": "blackhole",
+                "images": [
+                    "1123hopafsd092asd3",
+                    "1123hopafsd092asd4",
+                ],
+                "comments_count": 5,
+                "repost_count": 3,
+                "feedbacks": [
+                    { "type": "vote", "text": "like", "count": 5 },
+                    { "type": "vote", "text": "dislike", "count": 10 },
+                ],
+            }
 
 ### Retrieve a Hole [GET]
 + Response 200 (application/json)
 
-        [Holes][]
+        [Hole][]
 
 + Response 404 (application/json)
 
