@@ -36,7 +36,6 @@ module.exports = function(db) {
           }
         },
         {
-          "_id" : ObjectId("546058495c93dddeaf7668b4"),
           "publish_time" : "Sun Nov 09 13:41:00 +0800 2014",
           "text" : "Test hole 3",
           "images" : [],

@@ -43,7 +43,7 @@ function tree_hole(router) {
       sort: {"_id": -1}
     };
     var query = {
-      '_id': {$lt: new mongodb.ObjectID(end_id)}
+      _id: {$lt: new mongodb.ObjectID(end_id)}
     };
     db.collection('holes').find(query, options).toArray(function (err, docs) {
       if (err) {
@@ -62,7 +62,6 @@ function tree_hole(router) {
         console.log(err);
         throw err;
       } else {
-        console.log(result);
         res.send(result);
       }
     });
@@ -79,14 +78,14 @@ function tree_hole(router) {
       sort: {"_id": 1}
     };
     var query = {
-      hole_id: req.param('hole_id')
+      hole_id: req.param('hole_id'),
+      _id: {$lt: new mongodb.ObjectID(end_id)}
     };
     db.collection('comments').find(query, options).toArray(function (err, docs) {
       if (err) {
         console.log(err);
         throw err;
       } else {
-        console.log(docs);
         res.send(docs);
       }
     });
@@ -120,7 +119,6 @@ function tree_hole(router) {
         console.log(err);
         throw err;
       } else {
-        console.log(result);
         res.send(result);
       }
     });
