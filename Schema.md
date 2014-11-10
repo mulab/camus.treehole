@@ -53,7 +53,7 @@ However, to determine whether to show an anonymous user or real name, one should
   "text": "This is a simple comment",
   "hole_id": "545efe76a98d930012da6d4b",
   "from_user": {
-    "uid": 2147483648
+    "uid": "Alice"
   },
   "reply_to": {
     "comment_id": "545e28a80000000000000000"
