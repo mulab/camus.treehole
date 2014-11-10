@@ -88,6 +88,19 @@ function tree_hole(router) {
       }
     });
   });
+
+  // GET a channel use it's name
+  router.get('/channels/:id', function(req, res) {
+    db.collection('channels').findOne({channel_id: req.param('id')}, function(err, result) {
+      if (err) {
+        console.log(err);
+        throw err;
+      } else {
+        console.log(result);
+        res.send(result);
+      }
+    });
+  });
 }
 
 module.exports = tree_hole;
