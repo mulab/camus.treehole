@@ -12,7 +12,6 @@ router.get('/', function(req, res) {
     port: 9000,
     path: '/api/v1/holes',
     method: 'GET',
-    data: "{'number':'2'}",
     headers: {
       'Content-Type': 'application/json'
     }

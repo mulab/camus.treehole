@@ -31,10 +31,18 @@ function tree_hole(router) {
 
   //GET /treehole: get tree-holes
   router.get('/holes', function (req, res) {
-    var number = req.param('number', 10);   //10 is the default value of number of holes to be retrieved
-    if(number > 100)   //A maximum of 100 holes can be retrieved
-      number = 100;
-    db.collection('holes').find({}, {limit : number}).toArray(function (err, docs) {
+    var count = req.param('count', 10);
+    var page = req.param('page', 1);
+    var end_id = req.param('end_id');
+    var options = {
+      skip: (page - 1) * count,
+      limit: count,
+      sort: {"_id": -1}
+    };
+    var query = {
+      '_id': {$lt: new mongodb.ObjectID(end_id)}
+    };
+    db.collection('holes').find(query, options).toArray(function (err, docs) {
       if (err) {
         console.log(err);
         throw err;
