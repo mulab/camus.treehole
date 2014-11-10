@@ -12,13 +12,16 @@ function tree_hole(router) {
   //POST /treehole: create tree-hole
   router.post('/holes', function (req, res) {
     var hole = {};
-    hole.user = req.body.user;
-    hole.channel = req.body.channel;
-    hole.text = req.body.text;
-    hole.image = req.body.images;
-    hole.feedback_counters = [0, 0, 0];
-    hole.count_comments = 0;
-    hole.count_repost = 0;
+    hole.author = { uid: req.param('author') };
+    hole.options = {
+      channel_id: req.param('channel'),
+      anonymous: req.param('anonymous')
+    }
+    hole.text = req.param('text');
+    hole.image = req.param('images');
+    hole.feedbacks = req.param('feedbacks');
+    hole.references = req.param('references');
+    hole.publish_time = Date();
     db.collection('holes').insert(hole, function (err, result) {
       if (err) {
         console.log(err);
