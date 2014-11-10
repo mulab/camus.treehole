@@ -4,7 +4,13 @@ Following is how documents are stored in database.
 # Holes Collection
 All the neccessary information about a hole is stored here.
 
-From a hole document, you can go further find its comments, the others holes which are citing this hole, author profile etc. in other collections.
+From a hole document, you can go further find:
+* its comments
+* other holes which are citing this hole
+* profile and role of the author
+* etc.
+
+in other collections.
 
 ```json
 {
