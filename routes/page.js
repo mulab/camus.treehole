@@ -8,8 +8,9 @@ var http = require("http");
 router.get('/', function(req, res) {
 
   var options = {
-    host: 'private-e37e7-treeholeapis.apiary-mock.com',
-    path: '/holes',
+    host: '127.0.0.1',
+    port: 9000,
+    path: '/api/v1/holes',
     method: 'GET',
     data: "{'number':'2'}",
     headers: {
@@ -20,19 +21,15 @@ router.get('/', function(req, res) {
     var temp;
     ress.on('data', function (chunk) {
       temp = JSON.parse(chunk);
-
     });
 
     ress.on('end', function () {
       res.render('index', {
-        title: temp.toString(),
         treeholes: temp
       });
-      console.log(temp.toString());
     });
 
   }).end()
-
 
 });
 
