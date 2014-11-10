@@ -66,7 +66,7 @@ function tree_hole(router) {
   });
 
   // GET a comment using hole id
-  router.get('/comments', function(req, res) {
+  router.get('/holes/:hole_id/comments', function(req, res) {
     var count = req.param('count', 10);
     var page = req.param('page', 1);
     var end_id = req.param('end_id');
@@ -85,6 +85,27 @@ function tree_hole(router) {
       } else {
         console.log(docs);
         res.send(docs);
+      }
+    });
+  });
+
+  router.post('/holes/:hole_id/comments', function(req, res) {
+    var comment = {};
+    comment.hole_id = req.param('hole_id');
+    comment.text = req.param('text');
+    comment.from_user = { uid: req.param('from_user') };
+    comment.reply_to = { comment_id: req.param('reply_to') };
+    comment.options = {
+      anonymous : Boolean(req.param('anonymous')),
+      secret : Boolean(req.param('secret'))
+    };
+    comment.post_time = Date();
+    db.collection('comments').insert(comment, function (err, result) {
+      if (err) {
+        console.log(err);
+        throw err;
+      } else {
+        res.status(201).send(result[0]);
       }
     });
   });
