@@ -64,6 +64,30 @@ function tree_hole(router) {
       }
     });
   });
+
+  // GET a comment using hole id
+  router.get('/comments', function(req, res) {
+    var count = req.param('count', 10);
+    var page = req.param('page', 1);
+    var end_id = req.param('end_id');
+    var options = {
+      skip: (page - 1) * count,
+      limit: count,
+      sort: {"_id": 1}
+    };
+    var query = {
+      hole_id: req.param('hole_id')
+    };
+    db.collection('comments').find(query, options).toArray(function (err, docs) {
+      if (err) {
+        console.log(err);
+        throw err;
+      } else {
+        console.log(docs);
+        res.send(docs);
+      }
+    });
+  });
 }
 
 module.exports = tree_hole;
