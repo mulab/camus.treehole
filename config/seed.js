@@ -8,26 +8,92 @@ module.exports = function(db) {
     if (err) {
       var holes = [
         {
-          "user": "user1",
-          "channel": "blackhole",
-          "text": "Jogging in park",
-          "images": ["2", "3", "4"],
-          "feedback_counters": [4, 1, 2],
-          "count_comments": 5,
-          "count_repost": 3
+          "publish_time" : "Sun Nov 09 13:41:00 +0800 2014",
+          "text" : "Hello Treehole! :smile:",
+          "images" : [],
+          "author" : {
+            "uid" : "xiao_wang"
+          },
+          "feedbacks" : [],
+          "references" : [],
+          "options" : {
+            "anonymous" : true,
+            "channel_id" : "testChannel"
+          }
         },
         {
-          "user": "user2",
-          "channel": "blackhole",
-          "text": "Pick-up posters from post-office",
-          "images": ["1", "5", "7"],
-          "feedback_counters": [4, 1, 2],
-          "count_comments": 5,
-          "count_repost": 3
+          "publish_time" : "Sun Nov 09 13:41:00 +0800 2014",
+          "text" : "Test hole 2",
+          "images" : [],
+          "author" : {
+            "uid" : "xiao_wang"
+          },
+          "feedbacks" : [],
+          "references" : [],
+          "options" : {
+            "anonymous" : true,
+            "channel_id" : "testChannel"
+          }
+        },
+        {
+          "_id" : ObjectId("546058495c93dddeaf7668b4"),
+          "publish_time" : "Sun Nov 09 13:41:00 +0800 2014",
+          "text" : "Test hole 3",
+          "images" : [],
+          "author" : {
+            "uid" : "xiao_wang"
+          },
+          "feedbacks" : [],
+          "references" : [],
+          "options" : {
+            "anonymous" : true,
+            "channel_id" : "testChannel"
+          }
         }
       ];
       db.collection('holes', function (err, collection) {
         collection.insert(holes, {safe: true}, function (err, result) {
+          console.log(result);
+        });
+      });
+    }
+  });
+  db.collection('comments', {strict: true}, function (err, collection) {
+    if(err) {
+      var comments = [
+        {
+          "hole_id" : "5460580a5c93dddeaf7668b2",
+          "post_time" : "Sun Nov 09 17:56:55 +0800 2014",
+          "text" : "This is test comment 2",
+          "from_user" : {
+            "uid" : "xiao_zhang"
+          },
+          "reply_to" : {
+            "comment_id" : "545e28a80000000000000000"
+          },
+          "options" : {
+            "anonymous" : true,
+            "secret" : false
+          }
+        },
+        {
+          "hole_id" : "5460580a5c93dddeaf7668b2",
+          "post_time" : "Sun Nov 09 17:56:55 +0800 2014",
+          "text" : "This is a simple comment",
+          "from_user" : {
+            "uid" : "xiao_wang"
+          },
+          "reply_to" : {
+            "comment_id" : "545e28a80000000000000000"
+          },
+          "options" : {
+            "anonymous" : true,
+            "secret" : false
+          }
+        }
+      ];
+      db.collection('comments', function (err, collection) {
+        collection.insert(comments, {safe: true}, function (err, result) {
           console.log(result);
         });
       });
