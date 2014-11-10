@@ -14,7 +14,7 @@ From a hole document, you can go further find its comments, the others holes whi
     {"pic_id": "1123hopafsd092asd3"}
   ],
   "author": {
-    "uid": 109823742
+    "uid": "xiao_wang"
   },
   "feedbacks": [
     {"feedback_id": "544e28a80000000000000000"},
