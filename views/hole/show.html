@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+{% block title %} A sample hole {% endblock %}
+{% block head %}
+{% parent %}
+<link rel="stylesheet" href="/css/hole/show.css">
+<script src="/js/hole/show.js"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="main-container">
+    <div class="hole-container">
+      <div class="block main-part">
+        <div class="text">
+          今天没吃药，感觉自己萌萌哒(^o^)/
+        </div>
+        <div class="publish-time">
+          2014年7月8日 15:30
+        </div>
+        <div class="bottom-part">
+          <div class="left-part">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default">赞 <span class="badge">1</span></button>
+              <button type="button" class="btn btn-default">跪舔 <span class="badge">3</span></button>
+              <button type="button" class="btn btn-default">呵呵 <span class="badge">2</span></button>
+            </div>
+          </div>
+          <div class="right-part">
+            <div class="btn-group normal" role="group">
+              <button type="button" id="post-comment-btn" class="btn btn-primary">回复</button>
+              <button type="button" class="btn btn-primary normal">分享</button>
+            </div>
+            <div class="btn-group for-comment" role="group">
+              <button type="button" id="submit-comment-btn" class="btn btn-primary">确定</button>
+              <button type="button" id="cancel-comment-btn" class="btn btn-primary">取消</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="block post-comment">
+        <form role="form"><div class="form-group"><textarea class="form-control"></textarea></div></form>
+      </div>
+      <div class="block comment">
+        <div class="text">
+            哈哈哈哈哈哈哈哈。。。。。
+        </div>
+        <div class="publish-time">
+          2014年7月8日 15:30
+        </div>
+      </div>
+      <div class="block comment">
+        <div class="text">
+          哈哈哈哈哈哈哈哈。。。。。
+        </div>
+        <div class="publish-time">
+          2014年7月8日 15:30
+        </div>
+      </div>
+      <div class="block comment">
+        <div class="text">
+          哈哈哈哈哈哈哈哈。。。。。
+        </div>
+        <div class="publish-time">
+          2014年7月8日 15:30
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

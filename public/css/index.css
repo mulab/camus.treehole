@@ -14,3 +14,14 @@ a {
 .well {
   word-break: break-all;
 }
+
+.wall-container .item {
+  background: rgb(135, 199, 135);
+  width: 320px;
+  height: 320px;
+}
+
+.wall-container {
+  width: 80%;
+  margin: auto;
+}

@@ -28,7 +28,7 @@ router.get('/', function(req, res) {
       });
     });
 
-  }).end()
+  }).end();
 
 });
 

@@ -1,7 +1,12 @@
 {% extends 'layout.html' %}
 {% block title %} Welcome to {{ title }} {% endblock %}
+{% block head %}
+  {% parent %}
+  <link rel="stylesheet" href="/css/index.css">
+  <script src="/js/index.js"></script>
+{% endblock %}
 {% block content %}
-<div class="container">
+<!--<div class="container">
   <div class="row">
     {% for x in [0, 1, 2] %}
     <div class="col-lg-4 col-md-4 col-sm-4">
@@ -15,4 +20,14 @@
     </div>
     {% endfor %}
   </div>
+</div>-->
+<div class="wall-container">
+  <div class="item">a</div>
+  <div class="item">b</div>
+  <div class="item">c</div>
+  <div class="item">d</div>
+  <div class="item">e</div>
+  <div class="item">f</div>
+  <div class="item">g</div>
+</div>
 {% endblock %}
