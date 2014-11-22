@@ -14,3 +14,15 @@ a {
 .well {
   word-break: break-all;
 }
+
+.inputtext {
+  width: 100%;
+  height: 100px;
+  overflow-x:visible;
+  overflow-y:visible;
+  resize: none;
+}
+
+form {
+  padding-bottom: 30px;
+}

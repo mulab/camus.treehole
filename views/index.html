@@ -2,6 +2,15 @@
 {% block title %} Welcome to {{ title }} {% endblock %}
 {% block content %}
 <div class="container">
+  <form id="text_form" method="post">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <textarea type="textarea" id="txtContent" name="txtContent" class="inputtext">
+        </textarea>
+      </div>
+      <input type="submit" class="col-lg-offset-10 col-md-offset-10 col-sm-offset-10">
+    </div>
+  </form>
   <div class="row">
     {% for x in [0, 1, 2] %}
     <div class="col-lg-4 col-md-4 col-sm-4">
@@ -15,4 +24,4 @@
     </div>
     {% endfor %}
   </div>
-{% endblock %}
+  {% endblock %}
