@@ -16,7 +16,7 @@ function tree_hole(router) {
     hole.options = {
       channel_id: req.param('channel'),
       anonymous: req.param('anonymous')
-    }
+    };
     hole.text = req.param('text');
     hole.image = req.param('images');
     hole.feedbacks = req.param('feedbacks');

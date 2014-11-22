@@ -1,11 +1,9 @@
 'use strict';
 
-var api = require('./api');
-var page = require('./page');
-
 module.exports = function(app) {
-  app.use('/', page);
-  app.use('/api/v1', api);
+  app.use('/', require('./page'));
+  app.use('/api/v1', require('./api'));
+  app.use('/hole', require('./hole'));
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
     var err = new Error('Not Found');

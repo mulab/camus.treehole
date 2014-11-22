@@ -17,18 +17,18 @@ router.get('/', function(req, res) {
     }
   };
   http.request(options, function(ress){
-    var temp;
+    var temp = "";
     ress.on('data', function (chunk) {
-      temp = JSON.parse(chunk);
+      temp += chunk;
     });
 
     ress.on('end', function () {
       res.render('index', {
-        treeholes: temp
+        treeholes: JSON.parse(temp)
       });
     });
 
-  }).end()
+  }).end();
 
 });
 

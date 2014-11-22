@@ -21,6 +21,10 @@ module.exports = function (app, callback) {
   console.log(config.root);
   app.set('views', path.join(config.root, 'views'));
   app.set('view engine', 'html');
+  swig.setDefaults({loader: swig.loaders.fs(path.join(config.root, 'views'))});
+  // disable cache for development environment
+  swig.setDefaults({cache: app.get('env') !== 'development'});
+  app.set('view cache', app.get('env') !== 'development');
 
   // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));

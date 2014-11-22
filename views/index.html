@@ -1,5 +1,10 @@
 {% extends 'layout.html' %}
 {% block title %} Welcome to {{ title }} {% endblock %}
+{% block head %}
+  {% parent %}
+  <link rel="stylesheet" href="/css/index.css">
+  <script src="/js/index.js"></script>
+{% endblock %}
 {% block content %}
 <div class="container">
   <form id="text_form" method="post">
@@ -8,20 +13,26 @@
         <textarea type="textarea" id="txtContent" name="txtContent" class="inputtext">
         </textarea>
       </div>
-      <input type="submit" class="col-lg-offset-10 col-md-offset-10 col-sm-offset-10">
+      <div class="col-lg-offset-10 col-md-offset-10 col-sm-offset-10">
+        <input type="submit" value="发布" class="btn btn-primary">
+      </div>
     </div>
   </form>
+<div class="container">
   <div class="row">
     {% for x in [0, 1, 2] %}
     <div class="col-lg-4 col-md-4 col-sm-4">
       {% for hole in treeholes %}
-      {% if (loop.index0 % 3) == x %}
-      <div class="well">
-        {{ hole.text }}
-      </div>
-      {% endif %}
+      <a href="/hole/{{ hole._id }}">
+        {% if (loop.index0 % 3) == x %}
+        <div class="well">
+          {{ hole.text }}
+        </div>
+        {% endif %}
+      </a>
       {% endfor %}
     </div>
     {% endfor %}
   </div>
-  {% endblock %}
+</div>
+{% endblock %}
