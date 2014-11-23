@@ -14,19 +14,50 @@ router.get('/:id', function(req, res) {
       'Content-Type': 'application/json'
     }
   };
-  http.request(options, function(ress){
+  http.request(options, function(res1){
     var temp = "";
-    ress.on('data', function (chunk) {
+    res1.on('data', function (chunk) {
       temp += chunk;
     });
 
-    ress.on('end', function () {
-      res.render('hole/show', {
-        treehole: JSON.parse(temp)
-      });
+    res1.on('end', function () {
+      options.path += '/comments';
+      http.request(options, function(res2){
+        var temp_comment = "";
+        res2.on('data', function(chunk){
+          temp_comment += chunk;
+        });
+
+        res2.on('end', function() {
+          res.render('hole/show', {
+            treehole: JSON.parse(temp),
+            comments: JSON.parse(temp_comment)
+          });
+        });
+      }).end();
     });
 
   }).end();
+});
+
+router.post('/:id/comment', function(req, res) {
+  var options = {
+    host: '127.0.0.1',
+    port: 9000,
+    path: '/api/v1/holes/' + req.param('id') + '/comments',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  var request = http.request(options, function(){
+    res.redirect('/hole/' + req.param('id'));
+  });
+  var comment = {};
+  comment.hole_id = req.param('id');
+  comment.text = req.param('comment-text');
+  request.write(JSON.stringify(comment));
+  request.end();
 });
 
 

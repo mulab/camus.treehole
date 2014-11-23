@@ -3,15 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}{% endblock %}</title>
-  {% block head %}
+  {% block css %}
   <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
   {% endblock %}
 </head>
 <body>
   {% block content %}{% endblock %}
 
+  {% block js %}
   <script src="/bower_components/jquery/dist/jquery.js"></script>
-  <script src="/bower_components/dist/js/bootstrap.js"></script>
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
   <script src="/bower_components/freewall/freewall.js"></script>
+  {% endblock %}
 </body>
 </html>

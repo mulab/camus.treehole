@@ -32,7 +32,7 @@ $(function() {
     post_comment_block.hide();
     refresh_corner_property();
   });
-  //$('#submit-comment-btn').click(function() {
-  //  post_comment_block.find('form').submit();
-  //});
+  $('#submit-comment-btn').click(function() {
+    post_comment_block.find('form').submit();
+  });
 });

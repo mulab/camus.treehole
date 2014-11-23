@@ -1,9 +1,8 @@
 {% extends 'layout.html' %}
 {% block title %} A sample hole {% endblock %}
-{% block head %}
+{% block css %}
 {% parent %}
 <link rel="stylesheet" href="/css/hole/show.css">
-<script src="/js/hole/show.js"></script>
 {% endblock %}
 {% block content %}
 <div class="container">
@@ -37,34 +36,26 @@
         </div>
       </div>
       <div class="block post-comment">
-        <form role="form"><div class="form-group"><textarea class="form-control"></textarea></div></form>
+        <form role="form" method="post" action="/hole/{{ treehole._id }}/comment">
+          <div class="form-group"><textarea name="comment-text" class="form-control"></textarea></div>
+        </form>
       </div>
+      {% for comment in comments %}
       <div class="block comment">
         <div class="text">
-            哈哈哈哈哈哈哈哈。。。。。
+            {{ comment.text }}
         </div>
         <div class="publish-time">
-          2014年7月8日 15:30
+          {{ comment.post_time }}
         </div>
       </div>
-      <div class="block comment">
-        <div class="text">
-          哈哈哈哈哈哈哈哈。。。。。
-        </div>
-        <div class="publish-time">
-          2014年7月8日 15:30
-        </div>
-      </div>
-      <div class="block comment">
-        <div class="text">
-          哈哈哈哈哈哈哈哈。。。。。
-        </div>
-        <div class="publish-time">
-          2014年7月8日 15:30
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
-
 </div>
+{% endblock %}
+
+{% block js %}
+{% parent %}
+<script src="/js/hole/show.js"></script>
 {% endblock %}
