@@ -13,7 +13,7 @@
           {{ treehole.text }}
         </div>
         <div class="publish-time">
-          {{ treehole.publish_time }}
+          <span class="time-need-format">{{ treehole.publish_time }}</span>
         </div>
         <div class="bottom-part">
           <div class="left-part">
@@ -46,7 +46,7 @@
             {{ comment.text }}
         </div>
         <div class="publish-time">
-          {{ comment.post_time }}
+          <span class="time-need-format">{{ comment.post_time }}</span>
         </div>
       </div>
       {% endfor %}

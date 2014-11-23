@@ -20,6 +20,7 @@
     "beforeEach": true,
     "after": true,
     "afterEach": true,
-    "$": true
+    "$": true,
+    "moment": true
   }
 }
