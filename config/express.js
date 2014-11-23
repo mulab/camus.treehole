@@ -22,9 +22,16 @@ module.exports = function (app, callback) {
   app.set('views', path.join(config.root, 'views'));
   app.set('view engine', 'html');
   swig.setDefaults({loader: swig.loaders.fs(path.join(config.root, 'views'))});
-  // disable cache for development environment
-  swig.setDefaults({cache: app.get('env') !== 'development'});
-  app.set('view cache', app.get('env') !== 'development');
+  swig.setDefaults({cache: config.debug ? false: 'memory'});
+  app.set('view cache', ! config.debug);
+
+  // sass engine setup
+  var sassMiddleware = require('node-sass-middleware');
+  app.use(sassMiddleware({
+    src: path.join(config.root, 'public'),
+    dest: path.join(config.root, 'public'),
+    debug: config.debug
+  }));
 
   // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -33,5 +40,4 @@ module.exports = function (app, callback) {
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(cookieParser());
   app.use(express.static(path.join(config.root, 'public')));
-
 };

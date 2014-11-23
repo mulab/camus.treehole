@@ -10,5 +10,7 @@ module.exports = {
   db_host: 'localhost',
   db_port: 27017,
   db_name: 'test',
-  db_option: {auto_reconnect: true}
+  db_option: {auto_reconnect: true},
+  debug: false,
+  seed: false
 };

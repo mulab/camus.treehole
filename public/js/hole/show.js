@@ -1,18 +1,10 @@
 'use strict';
 $(function() {
   var refresh_corner_property = function() {
-    var all_blocks = $('.hole-container .block');
-    all_blocks.css('border-top-left-radius', '');
-    all_blocks.css('border-top-right-radius', '');
-    all_blocks.css('border-bottom-left-radius', '');
-    all_blocks.css('border-bottom-right-radius', '');
-
-    var first_block = $('.hole-container .block:visible:first');
-    var last_block = $('.hole-container .block:visible:last');
-    first_block.css('border-top-left-radius', '5px');
-    first_block.css('border-top-right-radius', '5px');
-    last_block.css('border-bottom-left-radius', '5px');
-    last_block.css('border-bottom-right-radius', '5px');
+    $('.hole-container .first-block').removeClass('first-block');
+    $('.hole-container .last-block').removeClass('last-block');
+    $('.hole-container .block:visible:first').addClass('first-block');
+    $('.hole-container .block:visible:last').addClass('last-block');
   };
 
   refresh_corner_property();
