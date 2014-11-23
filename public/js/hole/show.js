@@ -17,6 +17,7 @@ $(function() {
     post_comment_btn_group.show();
     post_comment_block.show();
     refresh_corner_property();
+    post_comment_block.find('.reply-input').focus();
   });
   $('#cancel-comment-btn').click(function() {
     normal_btn_group.show();

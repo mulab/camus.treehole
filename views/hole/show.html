@@ -37,11 +37,12 @@
       </div>
       <div class="block post-comment">
         <form role="form" method="post" action="/hole/{{ treehole._id }}/comment">
-          <div class="form-group"><textarea name="comment-text" class="form-control"></textarea></div>
+          <div class="form-group"><textarea name="comment-text" class="reply-input form-control"></textarea></div>
         </form>
       </div>
       {% for comment in comments %}
       <div class="block comment">
+        <div class="floor">#{{ loop.index }}</div>
         <div class="text">
             {{ comment.text }}
         </div>
