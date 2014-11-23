@@ -2,55 +2,30 @@
 
 var express = require('express');
 var router = express.Router();
-var http = require("http");
+var restfulApiHelper = require('../helper/restful-api-helper');
 
 /* GET home page. */
-router.get('/', function(req, res) {
-
-  var options = {
-    host: '127.0.0.1',
-    port: 9000,
-    path: '/api/v1/holes',
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
+router.get('/', function (req, res, next) {
+  restfulApiHelper.get('/api/v1/holes', {}, function (status, result) {
+    if (status !== 200) {
+      var err = new Error('Not Found');
+      err.status = 404;
+      return next(err);
     }
-  };
-  http.request(options, function(ress){
-    var temp = "";
-    ress.on('data', function (chunk) {
-      temp += chunk;
+    res.render('index', {
+      treeholes: JSON.parse(result)
     });
-
-    ress.on('end', function () {
-      res.render('index', {
-        treeholes: JSON.parse(temp)
-      });
-    });
-
-  }).end();
-
+  });
 });
 
-router.post('/', function(req, res){
+router.post('/', function (req, res, next){
   var textContent = req.param('txtContent');
-  var options = {
-    host: '127.0.0.1',
-    port: 9000,
-    path: '/api/v1/holes',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-  if (textContent.length != 0) {
-    var request = http.request(options, function(ress){
-      console.log("fdsfds");
-      res.redirect('/');
-    });
-    request.write(JSON.stringify({'text':textContent}));
-    request.end();
+  if (textContent.length === 0) {
+    return;
   }
+  restfulApiHelper.post('/api/v1/holes', {text: textContent}, function (status, result) {
+    res.redirect('/');
+  });
 });
 
 module.exports = router;

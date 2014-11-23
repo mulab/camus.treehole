@@ -11,6 +11,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var index = require('../routes/index');
 var api = require('../routes/api');
+var restfulApiHelper = require('../helper/restful-api-helper');
 
 module.exports = function (app, callback) {
   var config = require('./environments/' + app.get('env'));
@@ -32,6 +33,9 @@ module.exports = function (app, callback) {
     dest: path.join(config.root, 'public'),
     debug: config.debug
   }));
+
+  // setup RESTful API helper
+  restfulApiHelper.set({host: 'localhost', port: process.env.PORT || 9000});
 
   // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));

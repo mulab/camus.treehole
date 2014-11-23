@@ -7,11 +7,11 @@ var express = require('express');
 var router = express.Router();
 var db = require('../config/db').db();
 
-router.get('/status', function(req, res) {
+router.get('/status', function (req, res, next) {
   db.collection('holes', {strict: true}, function(err, collection) {
-    if(err) {
-      console.log(err);
-      res.sendStatus(500);
+    if (err) {
+      err.status = 500;
+      next(err);
     } else {
       res.sendStatus(200);
     }

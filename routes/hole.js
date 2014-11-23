@@ -2,63 +2,37 @@
 
 var express = require('express');
 var router = express.Router();
-var http = require("http");
+var restfulApiHelper = require('../helper/restful-api-helper');
 
-router.get('/:id', function(req, res) {
-  var options = {
-    host: '127.0.0.1',
-    port: 9000,
-    path: '/api/v1/holes/' + req.param('id'),
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
+router.get('/:id', function(req, res, next) {
+  restfulApiHelper.get('/api/v1/holes/' + req.param('id'), {}, function (status, result) {
+    if (status !== 200) {
+      var err = new Error('Not Found');
+      err.status = 404;
+      return next(err);
     }
-  };
-  http.request(options, function(res1){
-    var temp = "";
-    res1.on('data', function (chunk) {
-      temp += chunk;
+    var treehole = JSON.parse(result);
+    restfulApiHelper.get('/api/v1/holes/' + req.param('id') + '/comments', {}, function (status, result) {
+      if (status !== 200) {
+        var err = new Error('Not Found');
+        err.status = 404;
+        return next(err);
+      }
+      var comments = JSON.parse(result);
+      res.render('hole/show', {
+        treehole: treehole,
+        comments: comments
+      });
     });
-
-    res1.on('end', function () {
-      options.path += '/comments';
-      http.request(options, function(res2){
-        var temp_comment = "";
-        res2.on('data', function(chunk){
-          temp_comment += chunk;
-        });
-
-        res2.on('end', function() {
-          res.render('hole/show', {
-            treehole: JSON.parse(temp),
-            comments: JSON.parse(temp_comment)
-          });
-        });
-      }).end();
-    });
-
-  }).end();
-});
-
-router.post('/:id/comment', function(req, res) {
-  var options = {
-    host: '127.0.0.1',
-    port: 9000,
-    path: '/api/v1/holes/' + req.param('id') + '/comments',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-  var request = http.request(options, function(){
-    res.redirect('/hole/' + req.param('id'));
   });
-  var comment = {};
-  comment.hole_id = req.param('id');
-  comment.text = req.param('comment-text');
-  request.write(JSON.stringify(comment));
-  request.end();
 });
 
+router.post('/:id/comment', function (req, res, next) {
+  var hole_id = req.param('id');
+  var params = {hole_id: hole_id, text: req.param('comment-text')};
+  restfulApiHelper.post('/api/v1/holes/' + hole_id + '/comments', params, function (status, result) {
+    res.redirect('/hole/' + hole_id);
+  });
+});
 
 module.exports = router;

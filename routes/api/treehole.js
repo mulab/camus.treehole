@@ -10,7 +10,7 @@ var db = require('../../config/db').db();
  */
 function tree_hole(router) {
   //POST /treehole: create tree-hole
-  router.post('/holes', function (req, res) {
+  router.post('/holes', function (req, res, next) {
     var hole = {};
     hole.author = { uid: req.param('author') };
     hole.options = {
@@ -24,16 +24,14 @@ function tree_hole(router) {
     hole.publish_time = Date();
     db.collection('holes').insert(hole, function (err, result) {
       if (err) {
-        console.log(err);
-        throw err;
-      } else {
-        res.status(201).send(result[0]);
+        return next(err);
       }
+      res.status(201).send(result[0]);
     });
   });
 
   //GET /treehole: get tree-holes
-  router.get('/holes', function (req, res) {
+  router.get('/holes', function (req, res, next) {
     var count = req.param('count', 10);
     var page = req.param('page', 1);
     var end_id = req.param('end_id');
@@ -47,28 +45,29 @@ function tree_hole(router) {
     };
     db.collection('holes').find(query, options).toArray(function (err, docs) {
       if (err) {
-        console.log(err);
-        throw err;
-      } else {
-        res.send(docs);
+        return next(err);
       }
+      res.send(docs);
     });
   });
 
   // GET /treehole/:id get agit  tree-hole
-  router.get('/holes/:id', function (req, res) {
-    db.collection('holes').findOne({_id: new mongodb.ObjectID(req.param('id'))}, function(err, result) {
+  router.get('/holes/:id', function (req, res, next) {
+    db.collection('holes').findOne({_id: new mongodb.ObjectID(req.param('id'))}, function (err, result) {
       if (err) {
-        console.log(err);
-        throw err;
-      } else {
-        res.send(result);
+        return next(err);
       }
+      if (!result) {
+        err = new Error('Not Found');
+        err.status = 404;
+        return next(err);
+      }
+      res.send(result);
     });
   });
 
   // GET a comment using hole id
-  router.get('/holes/:hole_id/comments', function(req, res) {
+  router.get('/holes/:hole_id/comments', function (req, res, next) {
     var count = req.param('count', 10);
     var page = req.param('page', 1);
     var end_id = req.param('end_id');
@@ -83,15 +82,13 @@ function tree_hole(router) {
     };
     db.collection('comments').find(query, options).toArray(function (err, docs) {
       if (err) {
-        console.log(err);
-        throw err;
-      } else {
-        res.send(docs);
+        return next(err);
       }
+      res.send(docs);
     });
   });
 
-  router.post('/holes/:hole_id/comments', function(req, res) {
+  router.post('/holes/:hole_id/comments', function (req, res, next) {
     var comment = {};
     comment.hole_id = req.param('hole_id');
     comment.text = req.param('text');
@@ -104,23 +101,24 @@ function tree_hole(router) {
     comment.post_time = Date();
     db.collection('comments').insert(comment, function (err, result) {
       if (err) {
-        console.log(err);
-        throw err;
-      } else {
-        res.status(201).send(result[0]);
+        return next(err);
       }
+      res.status(201).send(result[0]);
     });
   });
 
   // GET a channel use it's name
-  router.get('/channels/:id', function(req, res) {
-    db.collection('channels').findOne({channel_id: req.param('id')}, function(err, result) {
+  router.get('/channels/:id', function (req, res, next) {
+    db.collection('channels').findOne({channel_id: req.param('id')}, function (err, result) {
       if (err) {
-        console.log(err);
-        throw err;
-      } else {
-        res.send(result);
+        return next(err);
       }
+      if (!result) {
+        err = new Error('Not Found');
+        err.status = 404;
+        return next(err);
+      }
+      res.send(result);
     });
   });
 }
