@@ -11,6 +11,7 @@
   "dependencies": {
     "bootstrap": "~3.3.0",
     "freewall": "~1.0.4",
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "moment": "~2.8.4"
   }
 }

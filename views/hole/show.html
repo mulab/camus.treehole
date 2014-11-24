@@ -13,7 +13,7 @@
           {{ treehole.text }}
         </div>
         <div class="publish-time">
-          {{ treehole.publish_time }}
+          <span class="time-need-format">{{ treehole.publish_time }}</span>
         </div>
         <div class="bottom-part">
           <div class="left-part">
@@ -37,16 +37,17 @@
       </div>
       <div class="block post-comment">
         <form role="form" method="post" action="/hole/{{ treehole._id }}/comment">
-          <div class="form-group"><textarea name="comment-text" class="form-control"></textarea></div>
+          <div class="form-group"><textarea name="comment-text" class="reply-input form-control"></textarea></div>
         </form>
       </div>
       {% for comment in comments %}
       <div class="block comment">
+        <div class="floor">#{{ loop.index }}</div>
         <div class="text">
             {{ comment.text }}
         </div>
         <div class="publish-time">
-          {{ comment.post_time }}
+          <span class="time-need-format">{{ comment.post_time }}</span>
         </div>
       </div>
       {% endfor %}

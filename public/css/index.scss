@@ -27,13 +27,12 @@ form {
   padding-bottom: 30px;
 }
 
-.wall-container .item {
-  background: rgb(135, 199, 135);
-  width: 320px;
-  height: 320px;
-}
-
 .wall-container {
   width: 80%;
   margin: auto;
+  .item {
+    background: rgb(135, 199, 135);
+    width: 320px;
+    height: 320px;
+  }
 }
