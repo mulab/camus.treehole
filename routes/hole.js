@@ -4,6 +4,19 @@ var express = require('express');
 var router = express.Router();
 var restfulApiHelper = require('../helper/restful-api-helper');
 
+router.post('/', function (req, res, next){
+  var textContent = req.param('txtContent');
+  if (textContent.length === 0) {
+    return;
+  }
+  var hole = {};
+  hole.text = textContent;
+  hole.channel = "testChannel";
+  restfulApiHelper.post('/api/v1/holes', hole, function (status, result) {
+    res.redirect('/');
+  });
+});
+
 router.get('/:id', function(req, res, next) {
   restfulApiHelper.get('/api/v1/holes/' + req.param('id'), {}, function (status, result) {
     if (status !== 200) {

@@ -3,37 +3,56 @@
 {% block css %}
   {% parent %}
   <link rel="stylesheet" href="/css/index.css">
-  <script src="/js/index.js"></script>
 {% endblock %}
 {% block content %}
 <div class="container">
-  <form id="text_form" method="post">
-    <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12">
-        <textarea type="textarea" id="txtContent" name="txtContent" class="inputtext">
-        </textarea>
-      </div>
-      <div class="col-lg-offset-10 col-md-offset-10 col-sm-offset-10">
-        <input type="submit" value="发布" class="btn btn-primary">
-      </div>
-    </div>
-  </form>
-</div>
-<div class="container">
-  <div class="row">
-    {% for x in [0, 1, 2] %}
-    <div class="col-lg-4 col-md-4 col-sm-4">
-      {% for hole in treeholes %}
-      <a href="/hole/{{ hole._id }}">
-        {% if (loop.index0 % 3) == x %}
-        <div class="well">
-          {{ hole.text }}
+  <div class="main-container">
+    <form action="/hole" method="post">
+      <div class="post-hole">
+        <div class="input-area">
+          <textarea name="txtContent" class="form-control" rows="5"></textarea>
         </div>
-        {% endif %}
-      </a>
+        <div class="feedback-list">
+          <div class="term-container">
+            <div class="term">
+              <span class="content">赞</span>
+              <button type="button" class="close delete-button">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="term term-template">
+            <span class="content"></span>
+            <button type="button" class="close delete-button">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="add-term">
+            <input placeholder="回车添加" type="text" class="form-control">
+          </div>
+
+        </div>
+        <div class="submit-button">
+          <button type="submit" class="btn btn-primary">发布</button>
+        </div>
+      </div>
+    </form>
+    <div class="hole-container">
+      {% for hole in treeholes %}
+      <div class="hole-wrapper">
+        <div data-href="/hole/{{ hole._id }}" class="hole">
+          <div class="text">
+            {{ hole.text }}
+          </div>
+          <div class="publish-time">
+            <span class="time-need-format">{{ hole.publish_time }}</span>
+          </div>
+        </div>
+      </div>
       {% endfor %}
     </div>
-    {% endfor %}
   </div>
 </div>
 {% endblock %}

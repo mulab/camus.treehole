@@ -18,17 +18,4 @@ router.get('/', function (req, res, next) {
   });
 });
 
-router.post('/', function (req, res, next){
-  var textContent = req.param('txtContent');
-  if (textContent.length === 0) {
-    return;
-  }
-  var hole = {};
-  hole.text = textContent;
-  hole.channel = "testChannel";
-  restfulApiHelper.post('/api/v1/holes', hole, function (status, result) {
-    res.redirect('/');
-  });
-});
-
 module.exports = router;

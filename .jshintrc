@@ -21,6 +21,7 @@
     "after": true,
     "afterEach": true,
     "$": true,
-    "moment": true
+    "moment": true,
+    "freewall": true
   }
 }

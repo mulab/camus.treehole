@@ -1,38 +1,81 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+.main-container {
+  width: 800px;
+  margin: 0 auto;
 
-a {
-  color: #00B7FF;
-}
+  .post-hole {
+    margin: 20px;
+    position: relative;
+    padding-bottom: 60px;
 
-.container {
-  max-width: 730px;
-}
+    .feedback-list {
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      .term-container, .term, .add-term {
+        display: inline-block;
+        float: left;
+      }
+      .term-template {
+        display: none;
+      }
+      .term {
+        position: relative;
+        border: 1px solid #e1e1e8;
+        border-radius: 5px;
+        padding: 5px 22px 5px 10px;
+        margin: 0 4px;
+        .content {
+          font-size: 12pt;
+        }
+        .delete-button {
+          position: absolute;
+          top: 1px;
+          right: 6px;
+        }
+      }
+      .add-term {
+        width: 120px;
+        margin-left: 15px;
+      }
+    }
 
-.well {
-  word-break: break-all;
-}
+    .submit-button {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
+  }
 
-.inputtext {
-  width: 100%;
-  height: 100px;
-  overflow-x:visible;
-  overflow-y:visible;
-  resize: none;
-}
+  .hole-container {
+    $content-font: "Helvetica Neue", "Microsoft Yahei", "SimHei", Helvetica, Arial, sans-serif;
+    $time-font: "Helvetica Neue", "SimSun", Helvetica, Arial, sans-serif;
 
-form {
-  padding-bottom: 30px;
-}
+    margin: auto;
 
-.wall-container {
-  width: 80%;
-  margin: auto;
-  .item {
-    background: rgb(135, 199, 135);
-    width: 320px;
-    height: 320px;
+    .hole-wrapper {
+      width: 250px;
+    }
+
+    .hole {
+      word-break: break-all;
+      background-color: #f7f7f9;
+      border: 1px solid #e1e1e8;
+      border-radius: 5px;
+      padding: 10px;
+      .text {
+        font-size: 20pt;
+        font-family: $content-font;
+      }
+      .publish-time {
+        font-size: 10pt;
+        font-family: $time-font;
+        color: gray;
+      }
+    }
+
+    .hole.hover-state {
+      background-color: #e1e1e8;
+      cursor: pointer;
+    }
   }
 }
