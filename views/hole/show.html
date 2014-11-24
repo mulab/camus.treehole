@@ -7,7 +7,7 @@
 {% block content %}
 <div class="container">
   <div class="main-container">
-    <div class="hole-container">
+    <div class="hole-container" hole-id="{{ treehole._id }}">
       <div class="block main-part">
         <div class="text">
           {{ treehole.text }}
@@ -18,9 +18,11 @@
         <div class="bottom-part">
           <div class="left-part">
             <div class="btn-group" role="group">
-              <button type="button" class="btn btn-default">赞 <span class="badge">1</span></button>
-              <button type="button" class="btn btn-default">跪舔 <span class="badge">3</span></button>
-              <button type="button" class="btn btn-default">呵呵 <span class="badge">2</span></button>
+              {% for feedback in treehole.feedbacks %}
+              <button type="button" class="btn btn-default feedback-button" feedback-id="{{ feedback._id }}">
+                {{ feedback.text }} <span class="badge">{{ feedback.count }}</span>
+              </button>
+              {% endfor %}
             </div>
           </div>
           <div class="right-part">

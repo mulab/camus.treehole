@@ -23,7 +23,10 @@ router.post('/', function (req, res, next){
   if (textContent.length === 0) {
     return;
   }
-  restfulApiHelper.post('/api/v1/holes', {text: textContent}, function (status, result) {
+  var hole = {};
+  hole.text = textContent;
+  hole.channel = "testChannel";
+  restfulApiHelper.post('/api/v1/holes', hole, function (status, result) {
     res.redirect('/');
   });
 });

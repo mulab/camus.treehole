@@ -35,4 +35,11 @@ router.post('/:id/comment', function (req, res, next) {
   });
 });
 
+router.post('/:hole_id/feedbacks/:feedback_id', function (req, res, next) {
+  restfulApiHelper.post('/api/v1/holes/' + req.param('hole_id') + '/feedbacks/'
+    + req.param('feedback_id'), {action:req.param('action')}, function (status, result) {
+    res.send(result);
+  });
+});
+
 module.exports = router;

@@ -98,4 +98,45 @@ module.exports = function(db) {
       });
     }
   });
+  db.collection('channels', {strict: true}, function (err, collection) {
+    if(err) {
+      var channels = [
+        {
+          "channel_id": "testChannel",
+          "screen_name": "Test Channel",
+          "description": "This is a channel for debugging!",
+          "sub_channels": [33, 35, 39],
+          "options": {
+            "default_pulish_anonymous": true,
+            "default_comment_anonymous": false,
+            "default_feedbacks": [
+              {"type": "vote", "text": ":+1:"},
+              {"type": "vote", "text": ":-1:"}
+            ]
+          }
+        }
+      ];
+      db.collection('channels', function (err, collection) {
+        collection.insert(channels, {safe: true}, function (err, result) {
+          console.log(result);
+        });
+      });
+    }
+  });
+  db.collection('feedbacks', {strict: true}, function (err, collection) {
+    if(err) {
+      var feedbacks = [
+        {
+          "type": "vote",
+          "text": "like",
+          "count": 10
+        }
+      ];
+      db.collection('feedbacks', function (err, collection) {
+        collection.insert(feedbacks, {safe: true}, function (err, result) {
+          console.log(result);
+        });
+      });
+    }
+  });
 };
