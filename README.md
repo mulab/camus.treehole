@@ -16,6 +16,7 @@ Caμs Tree-hole Project
 First install Node.js and then run
 ```bash
 $ npm install
+$ bower install
 ```
 Second install [MongoDB](http://www.mongodb.org/)
 
