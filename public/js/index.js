@@ -4,11 +4,19 @@ $(function() {
   wall.reset({ selector: '.hole-wrapper', cellW: 'auto', cellH: 'auto', gutterX: 20, gutterY: 20 });
   wall.fitWidth();
 
-  $('form').keydown(function (e){
+  var postHoleForm = $('#post-hole-form');
+
+  postHoleForm.keydown(function (e){
     if (e.keyCode === 13) {
       e.preventDefault();
       return false;
     }
+  });
+  postHoleForm.submit(function () {
+    var feedbacks = feedbackList.find('.term-container .term .content').map(function (){
+      return $(this).html();
+    }).get();
+    $(this).find('input[name=feedbacks]').val(feedbacks.join('\t'));
   });
 
   var feedbackList = $('.post-hole .feedback-list');
@@ -28,6 +36,7 @@ $(function() {
         newTerm.removeClass('term-template');
         newTerm.find('.content').html(content);
         newTerm.appendTo(feedbackList.find('.term-container'));
+        newTerm.show();
         initFeedbackTerm(newTerm);
         if (feedbackList.find('.term-container > .term').length === 3) {
           feedbackList.find('.add-term').hide();
