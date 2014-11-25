@@ -5,18 +5,14 @@ $(function() {
   wall.fitWidth();
 
   var postHoleForm = $('#post-hole-form');
-
-  postHoleForm.keydown(function (e){
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      return false;
-    }
-  });
   postHoleForm.submit(function () {
     var feedbacks = feedbackList.find('.term-container .term .content').map(function (){
       return $(this).html();
     }).get();
     $(this).find('input[name=feedbacks]').val(feedbacks.join('\t'));
+  });
+  $('.post-hole .submit-button button').click(function () {
+    postHoleForm.submit();
   });
 
   var feedbackList = $('.post-hole .feedback-list');
@@ -28,24 +24,20 @@ $(function() {
       }
     });
   };
-  feedbackList.find('.add-term input').keyup(function (e){
-    if (e.keyCode === 13) {
-      var content = $.trim($(this).val());
-      if (content.length > 0) {
-        var newTerm = feedbackList.find('.term-template').clone();
-        newTerm.removeClass('term-template');
-        newTerm.find('.content').html(content);
-        newTerm.appendTo(feedbackList.find('.term-container'));
-        newTerm.show();
-        initFeedbackTerm(newTerm);
-        if (feedbackList.find('.term-container > .term').length === 3) {
-          feedbackList.find('.add-term').hide();
-        }
+  feedbackList.find('.add-term form').submit(function (){
+    var content = $.trim($(this).find('input').val());
+    if (content.length > 0) {
+      var newTerm = feedbackList.find('.term-template').clone();
+      newTerm.removeClass('term-template');
+      newTerm.find('.content').html(content);
+      newTerm.appendTo(feedbackList.find('.term-container'));
+      newTerm.show();
+      initFeedbackTerm(newTerm);
+      if (feedbackList.find('.term-container > .term').length === 3) {
+        feedbackList.find('.add-term').hide();
       }
-      $(this).val('');
-      e.preventDefault();
-      return false;
     }
+    $(this).find('input').val('');
   });
   feedbackList.find('.term-container > .term').each(function () {
     initFeedbackTerm($(this));
