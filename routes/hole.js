@@ -43,11 +43,9 @@ router.get('/:id', function(req, res, next) {
 
 router.post('/:id/comment', function (req, res, next) {
   var hole_id = req.param('id');
-  var feedbacks = req.param('feedbacks').split('\t');
   var params = {
     hole_id: hole_id,
-    text: req.param('comment-text'),
-    feedbacks: feedbacks
+    text: req.param('comment-text')
   };
   restfulApiHelper.post('/api/v1/holes/' + hole_id + '/comments', params, function (status, result) {
     res.redirect('/hole/' + hole_id);
