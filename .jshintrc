@@ -22,6 +22,7 @@
     "afterEach": true,
     "$": true,
     "moment": true,
-    "freewall": true
+    "freewall": true,
+    "window": true
   }
 }

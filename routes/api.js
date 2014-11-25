@@ -8,7 +8,7 @@ var router = express.Router();
 var db = require('../config/db').db();
 
 router.get('/status', function (req, res, next) {
-  db.collection('holes', {strict: true}, function(err, collection) {
+  db.collection('holes', {strict: true}, function (err, collection) {
     if (err) {
       err.status = 500;
       next(err);

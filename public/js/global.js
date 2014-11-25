@@ -1,6 +1,6 @@
 'use strict';
 $(function() {
-  var time_formatter = function(time_string) {
+  var timeFormatter = function (timeString) {
     moment.locale('zh-cn', {
       calendar: {
         lastDay: '昨天 H:mm',
@@ -27,7 +27,7 @@ $(function() {
       }
     });
 
-    var time = moment(time_string);
+    var time = moment(timeString);
     if (moment().diff(time, 'hours', true) <= 1) {
       return time.fromNow();
     } else {
@@ -36,8 +36,8 @@ $(function() {
 
   };
 
-  $('span.time-need-format').each(function() {
-    var result = time_formatter($(this).html());
+  $('span.time-need-format').each(function () {
+    var result = timeFormatter($(this).html());
     $(this).html(result);
     $(this).removeClass('time-need-format');
   });

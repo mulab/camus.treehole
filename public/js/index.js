@@ -1,5 +1,5 @@
 'use strict';
-$(function() {
+$(function () {
   var wall = new freewall(".hole-container");
   wall.reset({ selector: '.hole-wrapper', cellW: 'auto', cellH: 'auto', gutterX: 20, gutterY: 20 });
   wall.fitWidth();
@@ -48,13 +48,13 @@ $(function() {
   });
 
   var holeContainer = $('.hole-container');
-  holeContainer.find('.hole').each(function() {
-    $(this).hover(function() {
+  holeContainer.find('.hole').each(function () {
+    $(this).hover(function () {
       $(this).addClass('hover-state');
-    }, function() {
+    }, function () {
       $(this).removeClass('hover-state');
     });
-    $(this).click(function() {
+    $(this).click(function () {
       window.open($(this).data('href'));
     });
   });
