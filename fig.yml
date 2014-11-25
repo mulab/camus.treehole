@@ -1,0 +1,13 @@
+TreeHoleMongo:
+ image: mongo:latest
+ volumes:
+  - ./db:/data/db
+
+TreeHoleWeb:
+ image: mulab/treehole:latest
+ ports:
+  - "80:9000"
+ links:
+  - TreeHoleMongo:db
+ environment:
+  - NODE_ENV=production
