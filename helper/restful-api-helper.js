@@ -18,10 +18,11 @@ var sendRequest = function (path, method, params, callback) {
     method: method,
     headers: {
       'Content-Type': 'application/json',
-      'Content-Length': sendData.length
+      'Content-Length': Buffer.byteLength(sendData, 'utf8')
     }
   };
   var req = http.request(options, function (res){
+    res.setEncoding('utf8');
     var result = '';
     res.on('data', function (chunk) {
       result += chunk;
