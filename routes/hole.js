@@ -7,7 +7,7 @@ var restfulApiHelper = require('../helper/restful-api-helper');
 router.post('/', function (req, res, next){
   var textContent = req.param('txtContent');
   if (textContent.length === 0) {
-    return;
+    return next('Empty content!');
   }
   var hole = {};
   hole.text = textContent;
@@ -43,9 +43,13 @@ router.get('/:id', function(req, res, next) {
 
 router.post('/:id/comment', function (req, res, next) {
   var hole_id = req.param('id');
+  var text = req.param('comment-text');
+  if (text.length === 0) {
+    return next('Empty content!');
+  }
   var params = {
     hole_id: hole_id,
-    text: req.param('comment-text')
+    text: text
   };
   restfulApiHelper.post('/api/v1/holes/' + hole_id + '/comments', params, function (status, result) {
     res.redirect('/hole/' + hole_id);

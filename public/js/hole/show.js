@@ -31,6 +31,12 @@ $(function() {
   $('#submit-comment-btn').click(function() {
     postCommentBlock.find('form').submit();
   });
+  postCommentBlock.find('form').submit(function() {
+    if ($(this).find('textarea').val().length === 0) {
+      alert('内容不能为空！');
+      return false;
+    }
+  });
 
   $('.feedback-button').click(function() {
     var postUrl = '/hole/' + $('.hole-container').attr('hole-id') + '/feedbacks/' + $(this).attr('feedback-id');

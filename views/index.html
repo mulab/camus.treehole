@@ -7,39 +7,42 @@
 {% block content %}
 <div class="container">
   <div class="main-container">
-    <form id="post-hole-form" action="/hole" method="post">
-      <input name="feedbacks" style="display: none;">
-      <div class="post-hole">
-        <div class="input-area">
+    <div class="post-hole">
+      <div class="input-area">
+        <form id="post-hole-form" action="/hole" method="post">
+          <input name="feedbacks" style="display: none;">
           <textarea name="txtContent" class="form-control" rows="5"></textarea>
-        </div>
-        <div class="feedback-list">
-          <div class="term-container">
-            <div class="term">
-              <span class="content">like</span>
-              <button type="button" class="close delete-button">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          </div>
+        </form>
+      </div>
 
-          <div class="term term-template" style="display: none;">
-            <span class="content"></span>
+      <div class="feedback-list">
+        <div class="term-container">
+          <div class="term">
+            <span class="content">like</span>
             <button type="button" class="close delete-button">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+        </div>
 
-          <div class="add-term">
+        <div class="term term-template" style="display: none;">
+          <span class="content"></span>
+          <button type="button" class="close delete-button">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="add-term">
+          <form action="javascript:void(0)">
             <input placeholder="回车添加" type="text" class="form-control">
-          </div>
+          </form>
+        </div>
 
-        </div>
-        <div class="submit-button">
-          <button type="submit" class="btn btn-primary">发布</button>
-        </div>
       </div>
-    </form>
+      <div class="submit-button">
+        <button type="button" class="btn btn-primary">发布</button>
+      </div>
+    </div>
     <div class="hole-container">
       {% for hole in treeholes %}
       <div class="hole-wrapper">
