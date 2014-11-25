@@ -35,7 +35,7 @@ $(function() {
   $('.feedback-button').click(function() {
     var postUrl = '/hole/' + $('.hole-container').attr('hole-id') + '/feedbacks/' + $(this).attr('feedback-id');
     $.post(postUrl, 'action=ok', function (data) {
-      $(this).children('span').html(data);
+      $(this).find('.badge').html(data);
     });
   });
 });

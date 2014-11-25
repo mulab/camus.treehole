@@ -11,6 +11,7 @@ router.post('/', function (req, res, next){
   }
   var hole = {};
   hole.text = textContent;
+  hole.feedbacks = req.param('feedbacks').split('\t');
   hole.channel = "testChannel";
   restfulApiHelper.post('/api/v1/holes', hole, function (status, result) {
     res.redirect('/');
@@ -42,7 +43,12 @@ router.get('/:id', function(req, res, next) {
 
 router.post('/:id/comment', function (req, res, next) {
   var hole_id = req.param('id');
-  var params = {hole_id: hole_id, text: req.param('comment-text')};
+  var feedbacks = req.param('feedbacks').split('\t');
+  var params = {
+    hole_id: hole_id,
+    text: req.param('comment-text'),
+    feedbacks: feedbacks
+  };
   restfulApiHelper.post('/api/v1/holes/' + hole_id + '/comments', params, function (status, result) {
     res.redirect('/hole/' + hole_id);
   });

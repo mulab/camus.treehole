@@ -25,11 +25,23 @@ function tree_hole(router) {
       if(err) {
         return next(err);
       }
-      var default_feedbacks = channel.options.default_feedbacks;
-      for(var i = 0; i < default_feedbacks.length; i++) {
-        default_feedbacks[i].count = 0;
+      var feedbacks = [];
+      if(!req.param('feedbacks')) {
+        feedbacks = channel.options.default_feedbacks;
+        for(var i = 0; i < feedbacks.length; i++) {
+          feedbacks[i].count = 0;
+        }
       }
-      db.collection('feedbacks').insert(default_feedbacks, function (err, feedbacks) {
+      else {
+        for(var i = 0; i < req.param('feedbacks').length; i++) {
+          feedbacks.push({
+            type: 'vote',
+            text: req.param('feedbacks')[i],
+            count: 0
+          });
+        }
+      }
+      db.collection('feedbacks').insert(feedbacks, function (err, feedbacks) {
         if(err) {
           return next(err);
         }
