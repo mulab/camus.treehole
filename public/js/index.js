@@ -59,7 +59,7 @@ $(function() {
       $(this).removeClass('hover-state');
     });
     $(this).click(function() {
-      window.location.href = $(this).data('href');
+      window.open($(this).data('href'));
     });
   });
 });
