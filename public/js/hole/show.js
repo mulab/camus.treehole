@@ -34,8 +34,10 @@ $(function() {
 
   $('.feedback-button').click(function() {
     var postUrl = '/hole/' + $('.hole-container').attr('hole-id') + '/feedbacks/' + $(this).attr('feedback-id');
+    $(this).addClass('disabled');
     $.post(postUrl, { action: 'ok' }, $.proxy(function (data) {
       $(this).find('.badge').html(data);
+      $(this).removeClass('disabled');
     }, this));
   });
 });
