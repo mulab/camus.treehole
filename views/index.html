@@ -7,7 +7,8 @@
 {% block content %}
 <div class="container">
   <div class="main-container">
-    <form action="/hole" method="post">
+    <form id="post-hole-form" action="/hole" method="post">
+      <input name="feedbacks" style="display: none;">
       <div class="post-hole">
         <div class="input-area">
           <textarea name="txtContent" class="form-control" rows="5"></textarea>
@@ -22,7 +23,7 @@
             </div>
           </div>
 
-          <div class="term term-template">
+          <div class="term term-template" style="display: none;">
             <span class="content"></span>
             <button type="button" class="close delete-button">
               <span aria-hidden="true">&times;</span>
