@@ -6,6 +6,10 @@ $(function() {
 
   var postHoleForm = $('#post-hole-form');
   postHoleForm.submit(function () {
+    if ($(this).find('textarea').val().length === 0) {
+      alert('内容不能为空！');
+      return false;
+    }
     var feedbacks = feedbackList.find('.term-container .term .content').map(function (){
       return $(this).html();
     }).get();
