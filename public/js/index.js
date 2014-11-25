@@ -15,6 +15,9 @@ $(function() {
   var initFeedbackTerm = function (term) {
     term.find('.delete-button').click(function () {
       $(this).parent().remove();
+      if (feedbackList.find('.term-container > .term').length < 3) {
+        feedbackList.find('.add-term').show();
+      }
     });
   };
   feedbackList.find('.add-term input').keyup(function (e){
@@ -26,6 +29,9 @@ $(function() {
         newTerm.find('.content').html(content);
         newTerm.appendTo(feedbackList.find('.term-container'));
         initFeedbackTerm(newTerm);
+        if (feedbackList.find('.term-container > .term').length === 3) {
+          feedbackList.find('.add-term').hide();
+        }
       }
       $(this).val('');
       e.preventDefault();
