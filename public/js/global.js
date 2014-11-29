@@ -3,12 +3,12 @@ $(function() {
   var time_formatter = function(time_string) {
     moment.locale('zh-cn', {
       calendar: {
-        lastDay: '昨天 H:m',
-        sameDay: '今天 H:m',
-        nextDay: '明天 H:m',
-        lastWeek: '本ddd H:m',
-        nextWeek: '下ddd H:m',
-        sameElse: 'YYYY年M月D日 H:m'
+        lastDay: '昨天 H:mm',
+        sameDay: '今天 H:mm',
+        nextDay: '明天 H:mm',
+        lastWeek: '本ddd H:mm',
+        nextWeek: '下ddd H:mm',
+        sameElse: 'YYYY年M月D日 H:mm'
       },
       relativeTime: {
         future: '%s之后',
