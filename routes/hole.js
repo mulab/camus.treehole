@@ -18,7 +18,7 @@ router.post('/', function (req, res, next){
   });
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('/:id', function (req, res, next) {
   restfulApiHelper.get('/api/v1/holes/' + req.param('id'), {}, function (status, result) {
     if (status !== 200) {
       var err = new Error('Not Found');
@@ -57,8 +57,8 @@ router.post('/:id/comment', function (req, res, next) {
 });
 
 router.post('/:hole_id/feedbacks/:feedback_id', function (req, res, next) {
-  restfulApiHelper.post('/api/v1/holes/' + req.param('hole_id') + '/feedbacks/'
-    + req.param('feedback_id'), {action:req.param('action')}, function (status, result) {
+  var url = '/api/v1/holes/' + req.param('hole_id') + '/feedbacks/' + req.param('feedback_id');
+  restfulApiHelper.post(url, { action: req.param('action') }, function (status, result) {
     res.send(result);
   });
 });
