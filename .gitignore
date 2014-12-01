@@ -12,3 +12,6 @@ db/
 
 # bower files
 /public/bower_components
+
+# static files
+/public
