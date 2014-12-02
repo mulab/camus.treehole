@@ -1,0 +1,6 @@
+{
+  "db": {
+    "host": "db_1",
+    "name": "treeholes"
+  }
+}

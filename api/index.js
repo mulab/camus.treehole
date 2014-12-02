@@ -1,5 +1,6 @@
 'use strict';
 
+require('./config/init')();
 var server = require('./api');
 var db = require('./config/db');
 

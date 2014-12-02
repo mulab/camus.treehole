@@ -5,7 +5,7 @@
 
 var mongodb = require('mongodb');
 
-module.exports = function(db) {
+module.exports = function (db) {
   db.collection('holes', {strict: true}, function (err, collection) {
     if (err) {
       var holes = [
@@ -37,7 +37,7 @@ module.exports = function(db) {
     }
   });
   db.collection('comments', {strict: true}, function (err, collection) {
-    if(err) {
+    if (err) {
       var comments = [
         {
           "hole_id" : "547429245659ef9816649219",
@@ -78,7 +78,7 @@ module.exports = function(db) {
     }
   });
   db.collection('channels', {strict: true}, function (err, collection) {
-    if(err) {
+    if (err) {
       var channels = [
         {
           "channel_id": "testChannel",
@@ -103,7 +103,7 @@ module.exports = function(db) {
     }
   });
   db.collection('feedbacks', {strict: true}, function (err, collection) {
-    if(err) {
+    if (err) {
       var feedbacks = [
         {
           _id : new mongodb.ObjectID("547429955659ef9816649223"),

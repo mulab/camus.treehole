@@ -2,20 +2,16 @@
 
 var express = require('express');
 var router = express.Router();
-var restfulApiHelper = require('../util/restful-api-helper');
+var restRequest = require('../helper/rest-request');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  restfulApiHelper.get('/holes', {}, function (status, result) {
-    if (status !== 200) {
-      var err = new Error('Not Found');
-      err.status = 404;
-      return next(err);
-    }
-    res.render('index', {
-      treeholes: JSON.parse(result)
+  restRequest.use('treehole').get('/holes', next)
+    .success(function (treeholes) {
+      res.render('index', {
+        treeholes: treeholes
+      });
     });
-  });
 });
 
 module.exports = router;

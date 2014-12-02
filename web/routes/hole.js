@@ -2,65 +2,82 @@
 
 var express = require('express');
 var router = express.Router();
-var restfulApiHelper = require('../util/restful-api-helper');
+var async = require('async');
+var restRequest = require('../helper/rest-request');
+var error = require('../../common/helper/error');
 
 router.post('/', function (req, res, next){
   var textContent = req.param('txtContent');
   if (textContent.length === 0) {
-    return next('Empty content!');
+    return next(error('Empty Content', { status: 400 }));
   }
   var hole = {};
   hole.text = textContent;
   hole.feedbacks = req.param('feedbacks');
   hole.channel = "testChannel";
-  restfulApiHelper.post('/holes', hole, function (status, result) {
-    res.redirect('/');
-  });
+  restRequest.use('treehole').post('/holes', hole, next)
+    .success(function () {
+      res.redirect('/');
+    });
 });
 
 router.get('/:id', function (req, res, next) {
-  restfulApiHelper.get('/holes/' + req.param('id'), {}, function (status, result) {
-    if (status !== 200) {
-      var err = new Error('Not Found');
-      err.status = 404;
+  async.parallel([
+    // retrieve treehole
+    function (callback) {
+      restRequest.use('treehole').get('/holes/' + req.param('id'), callback)
+        .success(function (hole) {
+          callback(null, hole);
+        })
+        .fail(function () {
+          callback(error('Not Found', { status: 404 }));
+        });
+    },
+
+    // retrieve comments
+    function (callback) {
+      restRequest.use('treehole').get('/holes/' + req.param('id') + '/comments', callback)
+        .success(function (comments) {
+          callback(null, comments);
+        })
+        .fail(function () {
+          callback(error('Not Found', { status: 404 }));
+        });
+    }
+
+  ], function (err, result) {
+    if (err) {
       return next(err);
     }
-    var treehole = JSON.parse(result);
-    restfulApiHelper.get('/holes/' + req.param('id') + '/comments', {}, function (status, result) {
-      if (status !== 200) {
-        var err = new Error('Not Found');
-        err.status = 404;
-        return next(err);
-      }
-      var comments = JSON.parse(result);
-      res.render('hole/show', {
-        treehole: treehole,
-        comments: comments
-      });
+    res.render('hole/show', {
+      treehole: result[0],
+      comments: result[1]
     });
   });
 });
 
 router.post('/:id/comment', function (req, res, next) {
-  var hole_id = req.param('id');
+  var holeId = req.param('id');
   var text = req.param('comment-text');
   if (text.length === 0) {
-    return next('Empty content!');
+    return next(error('Empty Content', { status: 400 }));
   }
   var params = {
-    hole_id: hole_id,
+    hole_id: holeId,
     text: text
   };
-  restfulApiHelper.post('/holes/' + hole_id + '/comments', params, function (status, result) {
-    res.redirect('/hole/' + hole_id);
-  });
+  restRequest.use('treehole').post('/holes/' + holeId + '/comments', params, next)
+    .success(function () {
+      res.redirect('/hole/' + holeId);
+    });
 });
 
 router.post('/:hole_id/feedbacks/:feedback_id', function (req, res, next) {
-  var url = '/holes/' + req.param('hole_id') + '/feedbacks/' + req.param('feedback_id');
-  restfulApiHelper.post(url, { action: req.param('action') }, function (status, result) {
-    res.send(result);
-  });
+  restRequest.use('treehole').post('/holes/' + req.param('hole_id') + '/feedbacks/' + req.param('feedback_id'),
+    { action: req.param('action') }, next)
+    .success(function (result) {
+      res.send(result);
+    });
 });
 
 module.exports = router;
