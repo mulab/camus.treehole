@@ -27,7 +27,7 @@ module.exports = function (router) {
         return next(err);
       }
       var feedbacks;
-      if (!req.param('feedbacks')) {
+      if (!req.param('feedbacks') || req.param('feedbacks').length === 0) {
         feedbacks = _.forEach(_.clone(channel.options.default_feedbacks, true), function (elem) {
           elem.count = 0;
         });

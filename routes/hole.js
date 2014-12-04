@@ -11,7 +11,7 @@ router.post('/', function (req, res, next){
   }
   var hole = {};
   hole.text = textContent;
-  hole.feedbacks = req.param('feedbacks').split('\t');
+  hole.feedbacks = req.param('feedbacks');
   hole.channel = "testChannel";
   restfulApiHelper.post('/api/v1/holes', hole, function (status, result) {
     res.redirect('/');

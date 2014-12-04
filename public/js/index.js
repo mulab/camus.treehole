@@ -10,10 +10,10 @@ $(function () {
       alert('内容不能为空！');
       return false;
     }
-    var feedbacks = feedbackList.find('.term-container .term .content').map(function (){
-      return $(this).html();
-    }).get();
-    $(this).find('input[name=feedbacks]').val(feedbacks.join('\t'));
+    $(this).find('input[name=feedbacks]').remove();
+    feedbackList.find('.term-container .term .content').each(function () {
+      $('<input type="hidden" name="feedbacks" />').val($(this).html()).appendTo(postHoleForm);
+    });
   });
   $('.post-hole .submit-button button').click(function () {
     postHoleForm.submit();
