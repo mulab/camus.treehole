@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+{% block title %} A sample hole {% endblock %}
+{% block css %}
+{% parent %}
+<link rel="stylesheet" href="/css/hole/show.css">
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="main-container">
+    <div class="hole-container" hole-id="{{ treehole._id }}">
+      <div class="block main-part">
+        <div class="text">
+          {{ treehole.text }}
+        </div>
+        <div class="publish-time">
+          <span class="time-need-format">{{ treehole.publish_time }}</span>
+        </div>
+        <div class="bottom-part">
+          <div class="left-part">
+            <div class="btn-group" role="group">
+              {% for feedback in treehole.feedbacks %}
+              <button type="button" class="btn btn-default feedback-button" feedback-id="{{ feedback._id }}">
+                {{ feedback.text }} <span class="badge">{{ feedback.count }}</span>
+              </button>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="right-part">
+            <div class="btn-group normal" role="group">
+              <button type="button" id="post-comment-btn" class="btn btn-primary">回复</button>
+              <button type="button" class="btn btn-primary normal">分享</button>
+            </div>
+            <div class="btn-group for-comment" role="group">
+              <button type="button" id="submit-comment-btn" class="btn btn-primary">确定</button>
+              <button type="button" id="cancel-comment-btn" class="btn btn-primary">取消</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="block post-comment">
+        <form role="form" method="post" action="/hole/{{ treehole._id }}/comment">
+          <div class="form-group"><textarea name="comment-text" class="reply-input form-control"></textarea></div>
+        </form>
+      </div>
+      {% for comment in comments %}
+      <div class="block comment">
+        <div class="floor">#{{ loop.index }}</div>
+        <div class="text">
+            {{ comment.text }}
+        </div>
+        <div class="publish-time">
+          <span class="time-need-format">{{ comment.post_time }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{% parent %}
+<script src="/js/hole/show.js"></script>
+{% endblock %}

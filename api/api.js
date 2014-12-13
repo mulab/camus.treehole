@@ -4,10 +4,10 @@
 'use strict';
 
 var express = require('express');
-var router = express.Router();
 var db = require('../config/db').db();
+var app = express();
 
-router.get('/status', function (req, res, next) {
+app.use('/status', function (req, res, next) {
   db.collection('holes', {strict: true}, function (err, collection) {
     if (err) {
       err.status = 500;
@@ -18,6 +18,9 @@ router.get('/status', function (req, res, next) {
   });
 });
 
-require('./api/treehole')(router);
+var server = require('http').createServer(app);
 
-module.exports = router;
+require('./config/express')(app);
+require('./routes')(app);
+
+module.exports = server;

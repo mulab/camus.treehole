@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{% endblock %}</title>
+  {% block css %}
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="/css/global.css" />
+  {% endblock %}
+  {% block js %}
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="/bower_components/freewall/freewall.js"></script>
+  <script src="/bower_components/moment/min/moment-with-locales.js"></script>
+  <script src="/js/global.js"></script>
+  {% endblock %}
+</head>
+<body>
+  {% block content %}{% endblock %}
+
+  <div class="footer">
+    <hr>
+    <div class="content">
+      with love from <a href="http://www.lab.mu">Lab μ</a>
+    </div>
+  </div>
+
+</body>
+</html>
