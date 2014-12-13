@@ -1,19 +1,12 @@
 'use strict';
-var express = require('express');
 
-var app = express();
+var child_process = require('child_process');
 
-var server = require('http').createServer(app);
-var db = require('./config/db');
-require('./config/express')(app);
-require('./routes')(app);
-db.connect(function (err) {
-  if (!err) {
-    server.listen(process.env.PORT || 9000, function () {
-      console.log('Express server listening');
-    });
-  } else {
-    throw err;
-  }
-});
-module.exports = app;
+var web = child_process.exec('node web/index.js');
+
+var api = child_process.exec('node api/index.js');
+
+web.stdout.pipe(process.stdout);
+api.stdout.pipe(process.stdout);
+web.stderr.pipe(process.stderr);
+api.stderr.pipe(process.stderr);
