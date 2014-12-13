@@ -1,7 +1,14 @@
 'use strict';
 
 var server = require('./api.js');
+var db = require('./config/db');
 
-server.listen(process.env.PORT || 9000, function () {
-  console.log('API server listening');
+db.connect(function (err) {
+  if (!err) {
+    server.listen(process.env.PORT || 9000, function () {
+      console.log('API server listening');
+    });
+  } else {
+    throw err;
+  }
 });

@@ -1,8 +1,21 @@
 'use strict';
 
+var db = require('../config/db').db();
+
 module.exports = function (app) {
-  app.use('/holes', require('./holes.js'));
-  app.use('/channels', require('./channels.js'));
+  app.use('/holes', require('./holes'));
+  app.use('/channels', require('./channels'));
+
+  app.use('/status', function (req, res, next) {
+    db.collection('holes', {strict: true}, function (err, collection) {
+      if (err) {
+        err.status = 500;
+        next(err);
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  });
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
