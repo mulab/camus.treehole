@@ -4,7 +4,7 @@
 'use strict';
 
 var express = require('express');
-var db = require('../config/db').db();
+var db = require('./config/db').db();
 var app = express();
 
 var server = require('http').createServer(app);

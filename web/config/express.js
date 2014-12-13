@@ -42,5 +42,5 @@ module.exports = function (app, callback) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(cookieParser());
-  app.use(express.static(path.join(config.root, '../public')));
+  app.use(express.static(path.join(config.root, 'public')));
 };

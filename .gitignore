@@ -1,6 +1,6 @@
 node_modules/
-public/bower_components/
-public/css/**/*.css
+web/public/bower_components/
+web/public/css/**/*.css
 db/
 npm-debug.log
 

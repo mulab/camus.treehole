@@ -1,6 +1,6 @@
 'use strict';
 var mongodb = require('mongodb');
-var db = require('../../config/db').db();
+var db = require('../config/db').db();
 var _ = require('lodash');
 
 
