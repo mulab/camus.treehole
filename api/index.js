@@ -1,6 +1,6 @@
 'use strict';
 
-var server = require('./api.js');
+var server = require('./api');
 var db = require('./config/db');
 
 db.connect(function (err) {

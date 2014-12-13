@@ -1,6 +1,6 @@
 'use strict';
 
-var config = {host: 'localhost', port: '80'};
+var config = {host: 'localhost', port: '9000'};
 var http = require('http');
 
 exports.set = function (props) {

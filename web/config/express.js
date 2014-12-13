@@ -10,12 +10,31 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var index = require('../routes/index');
-var api = require('../routes/api');
+var restfulApiHelper = require('../util/restful-api-helper');
 
 module.exports = function (app, callback) {
   var config = require('./environments/' + app.get('env'));
 
+  var swig = require('swig');
+  // view engine setup
+  app.engine('html', swig.renderFile);
   console.log(config.root);
+  app.set('views', path.join(config.root, 'views'));
+  app.set('view engine', 'html');
+  swig.setDefaults({loader: swig.loaders.fs(path.join(config.root, 'views'))});
+  swig.setDefaults({cache: config.debug ? false: 'memory'});
+  app.set('view cache', ! config.debug);
+
+  // sass engine setup
+  var sassMiddleware = require('node-sass-middleware');
+  app.use(sassMiddleware({
+    src: path.join(config.root, 'public'),
+    dest: path.join(config.root, 'public'),
+    debug: config.debug
+  }));
+
+  // setup RESTful API helper
+  restfulApiHelper.set({host: 'localhost', port: process.env.PORT || 9000});
 
   // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -23,5 +42,5 @@ module.exports = function (app, callback) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(cookieParser());
-  app.use(express.static(path.join(config.root, 'public')));
+  app.use(express.static(path.join(config.root, '../public')));
 };

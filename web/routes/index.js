@@ -1,8 +1,7 @@
 'use strict';
 
 module.exports = function (app) {
-  app.use('/', require('./page'));
-  app.use('/api/v1', require('./api'));
+  app.use('/', require('./home'));
   app.use('/hole', require('./hole'));
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
