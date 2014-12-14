@@ -1,6 +1,5 @@
 {
   "debug": false,
-  "seed": false,
   "rest_request": {
     "treehole": {
       "host": "http://localhost",

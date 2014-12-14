@@ -1,4 +1,5 @@
 {
+  "seed": true,
   "db": {
     "name": "treeholes"
   }

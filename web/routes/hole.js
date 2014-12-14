@@ -14,6 +14,9 @@ router.post('/', function (req, res, next){
   var hole = {};
   hole.text = textContent;
   hole.feedbacks = req.param('feedbacks');
+  if (!Array.isArray(hole.feedbacks)) {
+    hole.feedbacks = [hole.feedbacks];
+  }
   hole.channel = "testChannel";
   restRequest.use('treehole').post('/holes', hole, next)
     .success(function () {

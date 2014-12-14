@@ -1,4 +1,6 @@
 {
+  "debug": false,
+  "seed": false,
   "db": {
     "host": "localhost",
     "port": 27017,
