@@ -3,6 +3,7 @@
 var db = require('../config/db').db();
 
 module.exports = function (app) {
+  app.use('/users', require('./users'));
   app.use('/holes', require('./holes'));
   app.use('/channels', require('./channels'));
 

@@ -74,6 +74,81 @@ module.exports = function (db) {
       });
     }
   });
+  db.collection('users', {strict: true}, function (err) {
+    if (err) {
+      var users = [
+        {
+          user_id: "xiao_wang",
+          join_time: "Tue May 10 23:46:55 +0800 2011",
+          screen_name: "王霸之气",
+          contact_info: {
+            email: "xiao.wang@163.com",
+            mobile: "112341234432"
+          },
+          links: [
+            {url: "http://xiaowang.io", "text": "个人博客"},
+            {url: "http://linkedin.com/xiaowang"}
+          ],
+          tsinghua_account: {
+            student_number: "2014311111",
+            student_id: "xiaowang14",
+            real_name: "小王",
+            student_type: "博士",
+            gender: "男",
+            department: "交叉信息研究院",
+            email: "xiao.wang@gmail.com",
+            mobile: "+8612341234432"
+          },
+          wechat_account: {
+          },
+          renren_account: {
+          },
+          weibo_account: {
+            uid: "12341234",
+            expires_in: "1234",
+            access_token: "ACCESS_TOKEN"
+          }
+        },
+        {
+          user_id: "xiao_zhang",
+          join_time: "Tue May 10 23:46:55 +0800 2011",
+          screen_name: "呵呵",
+          contact_info: {
+            email: "xiao.zhang@163.com",
+            mobile: "1234312321"
+          },
+          links: [
+            {url: "http://xiaozhang.io", "text": "个人博客"},
+            {url: "http://linkedin.com/xiaozhang"}
+          ],
+          tsinghua_account: {
+            student_number: "2014311111",
+            student_id: "xiaowang14",
+            real_name: "小张",
+            student_type: "本科生",
+            gender: "男",
+            department: "计算机系",
+            email: "xiao.zhang@gmail.com",
+            mobile: "+861234312321"
+          },
+          wechat_account: {
+          },
+          renren_account: {
+          },
+          weibo_account: {
+            uid: "56785678",
+            expires_in: "1000",
+            access_token: "ACCESS_TOKEN"
+          }
+        }
+      ];
+      db.collection('users', function (err, collection) {
+        collection.insert(users, {safe: true}, function (err, result) {
+          console.log(result);
+        });
+      });
+    }
+  });
   db.collection('channels', {strict: true}, function (err) {
     if (err) {
       var channels = [
