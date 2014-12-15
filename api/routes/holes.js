@@ -39,12 +39,13 @@ router.post('/', function (req, res, next) {
           return { type: 'vote', text: elem, count: 0 };
         });
       }
-      holes.feedbacks = feedbacks;
+      hole.feedbacks = feedbacks;
       db.collection('holes').insert(hole, function (err, hole) {
-        callback(null, hole[0]);
+        callback(err, hole[0]);
       });
     },
 
+    // create user role
     function (hole, callback) {
       var role = {
         user: hole.author_id,
@@ -52,16 +53,21 @@ router.post('/', function (req, res, next) {
         avatar: null,
         text: "路人甲"
       };
-      db.collection('roles').insert(role, function (err, hole) {
+      db.collection('roles').insert(role, function (err, role) {
+        delete hole.author_id;
+        hole.user_role = role[0];
+        delete hole.user_role._id;
+        delete hole.user_role.user;
+        delete hole.user_role.hole;
         callback(null, hole);
       });
     }
 
-  ], function (err, result) {
+  ], function (err, hole) {
     if (err) {
       return next(err);
     } else {
-      res.status(201).send(result);
+      res.status(201).send(hole);
     }
   });
 });
@@ -91,7 +97,7 @@ router.get('/', function (req, res, next) {
     function (holes, callback) {
       async.each(
         holes,
-        function (hole, callback_role) {
+        function (hole, callback) {
           var query = {
             user: hole.author_id,
             hole: hole._id
@@ -102,7 +108,7 @@ router.get('/', function (req, res, next) {
             delete hole.user_role._id;
             delete hole.user_role.user;
             delete hole.user_role.hole;
-            callback_role(null);
+            callback(err);
           });
         },
         function(err) {
@@ -152,7 +158,7 @@ router.get('/:id', function (req, res, next) {
         delete hole.user_role.hole;
         callback(null, hole);
       });
-    },
+    }
 
   ], function (err, hole) {
     if (err) {
@@ -176,14 +182,46 @@ router.get('/:hole_id/comments', function (req, res, next) {
     return next(error('invalid end id', { status: 400 }));
   }
   var query = {
-    hole_id: req.param('hole_id'),
+    hole_id: new mongodb.ObjectID(req.param('hole_id')),
     _id: { $lt: new mongodb.ObjectID(endId) }
   };
-  db.collection('comments').find(query, options).toArray(function (err, docs) {
-    if (err) {
-      return next(err);
+  async.waterfall([
+    // retrieve comments
+    function (callback) {
+      db.collection('comments').find(query, options).toArray(function (err, comments) {
+        callback(err, comments);
+      });
+    },
+
+    // retrieve correspond user role
+    function (comments, callback) {
+      async.each(
+        comments,
+        function (comment, callback) {
+          var query = {
+            user: comment.from_user,
+            hole: comment.hole_id
+          };
+          db.collection('roles').findOne(query, function (err, role) {
+            delete comment.from_user;
+            comment.user_role = role;
+            delete comment.user_role._id;
+            delete comment.user_role.user;
+            delete comment.user_role.hole;
+            callback(err);
+          });
+        },
+        function (err) {
+          callback(err, comments);
+        }
+      );
     }
-    res.send(docs);
+  ], function (err, comments) {
+    if(err) {
+      next(err);
+    } else {
+      res.send(comments);
+    }
   });
 });
 
@@ -198,11 +236,32 @@ router.post('/:hole_id/comments', function (req, res, next) {
     secret : Boolean(req.param('secret'))
   };
   comment.post_time = Date();
-  db.collection('comments').insert(comment, function (err, result) {
-    if (err) {
-      return next(err);
+  async.waterfall([
+    // insert a comment
+    function (callback) {
+      db.collection('comments').insert(comment, function (err, comment) {
+        callback(err, comment[0]);
+      });
+    },
+
+    // create corresponding role
+    function (comment, callback) {
+      var role = {
+        user: comment.from_user,
+        hole: comment.hole_id,
+        avatar: null,
+        text: "路人甲"
+      };
+      db.collection('roles').insert(role, function (err) {
+        callback(err, comment);
+      });
     }
-    res.status(201).send(result[0]);
+  ], function (err, comment) {
+    if(err) {
+      next(err);
+    } else {
+      res.status(201).send(comment);
+    }
   });
 });
 

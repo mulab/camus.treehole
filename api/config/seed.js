@@ -6,7 +6,7 @@
 var mongodb = require('mongodb');
 
 module.exports = function (db) {
-  db.collection('holes', {strict: true}, function (err, collection) {
+  db.collection('holes', {strict: true}, function (err) {
     if (err) {
       var holes = [
         {
@@ -25,7 +25,7 @@ module.exports = function (db) {
               "type": "vote",
               "text": "dislike",
               "count": 5
-            },
+            }
           ],
           "references": [ ],
           "options": {
@@ -41,26 +41,26 @@ module.exports = function (db) {
       });
     }
   });
-  db.collection('comments', {strict: true}, function (err, collection) {
+  db.collection('comments', {strict: true}, function (err) {
     if (err) {
       var comments = [
         {
-            "hole_id" : "547429245659ef9816649219",
+            "hole_id" : new mongodb.ObjectID("547429245659ef9816649219"),
             "post_time" : "Sun Nov 09 17:56:55 +0800 2014",
             "text" : "This is test comment 2",
             "from_user" : "xiao_zhang",
-            "reply_to" : "545e28a80000000000000000",
+            "reply_to" : new mongodb.ObjectID("545e28a80000000000000000"),
             "options" : {
               "anonymous" : true,
               "secret" : false
           }
         },
         {
-          "hole_id" : "547429245659ef9816649219",
+          "hole_id" : new mongodb.ObjectID("547429245659ef9816649219"),
           "post_time" : "Sun Nov 09 17:56:55 +0800 2014",
           "text" : "This is a simple comment",
           "from_user" : "xiao_wang",
-          "reply_to" : "545e28a80000000000000000",
+          "reply_to" : new mongodb.ObjectID("545e28a80000000000000000"),
           "options" : {
             "anonymous" : true,
             "secret" : false
@@ -74,7 +74,7 @@ module.exports = function (db) {
       });
     }
   });
-  db.collection('channels', {strict: true}, function (err, collection) {
+  db.collection('channels', {strict: true}, function (err) {
     if (err) {
       var channels = [
         {
@@ -99,7 +99,7 @@ module.exports = function (db) {
       });
     }
   });
-  db.collection('roles', {strict: true}, function (err, collection) {
+  db.collection('roles', {strict: true}, function (err) {
     if (err) {
       var roles = [
         {
