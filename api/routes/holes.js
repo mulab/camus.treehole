@@ -86,11 +86,37 @@ router.get('/', function (req, res, next) {
   var query = {
     _id: { $lt: new mongodb.ObjectID(endId) }
   };
-  db.collection('holes').find(query, options).toArray(function (err, docs) {
-    if (err) {
-      return next(err);
+  async.waterfall([
+    function (callback) {
+      db.collection('holes').find(query, options).toArray(function (err, holes) {
+        callback(err, holes);
+      });
+    },
+    function (holes, callback) {
+      async.each(
+        holes,
+        function (hole, callback_role) {
+          var query = {
+            user: hole.author,
+            hole: { hole_id: hole._id }
+          };
+          db.collection('roles').findOne(query, function (err, role) {
+            delete hole.author;
+            hole.user_role = role;
+            callback_role(null);
+          });
+        },
+        function(err) {
+          callback(err, holes);
+        }
+      );
     }
-    res.send(docs);
+  ], function (err, holes) {
+    if(err) {
+      next(err);
+    } else {
+      res.send(holes);
+    }
   });
 });
 
@@ -110,6 +136,18 @@ router.get('/:id', function (req, res, next) {
           return callback(error('invalid hole id', { status: 404 }));
         }
         callback(null, hole);
+      });
+    },
+
+    function (hole, callback) {
+      var query = {
+        user: hole.author,
+        hole: { hole_id: hole._id }
+      };
+      db.collection('roles').findOne(query, function (err, role) {
+        delete hole.author;
+        hole.user_role = role;
+        callback_role(null);
       });
     },
 
