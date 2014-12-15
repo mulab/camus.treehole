@@ -12,6 +12,7 @@ router.post('/', function (req, res, next){
     return next(error('Empty Content', { status: 400 }));
   }
   var hole = {};
+  hole.author = req.session.user;
   hole.text = textContent;
   hole.feedbacks = req.param('feedbacks');
   if (!Array.isArray(hole.feedbacks)) {
@@ -66,6 +67,7 @@ router.post('/:id/comment', function (req, res, next) {
     return next(error('Empty Content', { status: 400 }));
   }
   var params = {
+    from_user: req.session.user,
     hole_id: holeId,
     text: text
   };

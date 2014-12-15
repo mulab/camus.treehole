@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% block title %} 清华树洞 {% endblock %}
+{% block css %}
+{% parent %}
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row" style="margin-top:50px">
+    <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-lg-6 col-md-6 col-sm-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            登陆
+          </h3>
+        </div>
+        <div class="panel-body">
+          <form action="" method="post" class="form-horizontal"
+                role="form">
+            <div class="form-group">
+              <label for="username" class="col-lg-2 col-md-2 control-label">
+                用户名:
+              </label>
+              <div class="col-lg-10 col-md-10">
+                <input type="text" class="form-control" id="username" name="username"
+                       placeholder="Enter your user name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password" class="col-lg-2 col-md-2 control-label">
+                密码:
+              </label>
+              <div class="col-lg-10 col-md-10">
+                <input type="password" class="form-control" id="password" name="password"
+                       placeholder="Enter your password">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">
+                  登录
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{% parent %}
+{% endblock %}

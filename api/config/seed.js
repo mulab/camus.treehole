@@ -197,4 +197,19 @@ module.exports = function (db) {
       });
     }
   });
+  db.collection('auth', {strict: true}, function (err) {
+    if (err) {
+      var roles = [
+        {
+          "username": "test",
+          "password": "81dc9bdb52d04dc20036dbd8313ed055"
+        }
+      ];
+      db.collection('auth', function (err, collection) {
+        collection.insert(roles, {safe: true}, function (err, result) {
+          console.log(result);
+        });
+      });
+    }
+  });
 };

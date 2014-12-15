@@ -10,6 +10,7 @@ var logger = require('morgan');
 var nconf = require('nconf');
 var fs = require('fs');
 var cookieParser = require('cookie-parser');
+var expressSession = require('express-session');
 var bodyParser = require('body-parser');
 
 module.exports = function (app, callback) {
@@ -37,5 +38,10 @@ module.exports = function (app, callback) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
+  app.use(expressSession({
+    secret: 'mULab3.14159',
+    resave: false,
+    saveUninitialized: true
+  }));
   app.use(express.static(path.join(nconf.get('root'), 'public')));
 };

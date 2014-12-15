@@ -10,7 +10,7 @@ var router = express.Router();
 //POST /treehole: create tree-hole
 router.post('/', function (req, res, next) {
   var hole = {};
-  hole.author = req.param('author');
+  hole.author_id = req.param('author');
   hole.options = {
     channel_id: req.param('channel'),
     anonymous: req.param('anonymous')

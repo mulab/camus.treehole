@@ -7,6 +7,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('../config/db').db();
 var error = require('../../common/helper/error');
+var crypto = require('crypto');
 
 // create a new user
 router.post('/', function (req, res, next) {
@@ -36,6 +37,24 @@ router.get('/:user_id', function (req, res, next) {
       next(err);
     } else {
       res.send(user);
+    }
+  });
+});
+
+router.post('/authenticate', function (req, res, next) {
+  db.collection('auth').findOne({ username: req.param('username') }, function (err, user) {
+    if(err) {
+      next(err);
+    } else {
+      var md5 = crypto.createHash('md5');
+      md5.update(req.param('password'));
+      var pass_md5 = md5.digest('hex');
+      console.log(pass_md5);
+      if(pass_md5 === user.password) {
+        res.status(200).end();
+      } else {
+        res.status(403).end();
+      }
     }
   });
 });
