@@ -11,21 +11,26 @@ module.exports = function (db) {
       var holes = [
         {
           _id : new mongodb.ObjectID("547429245659ef9816649219"),
-          "publish_time" : "Sun Nov 09 13:41:00 +0800 2014",
-          "text" : "Hello Treehole! :smile:",
-          "images" : [],
-          "author" : {
-            "uid" : "xiao_wang"
-          },
-          "feedbacks" : [
+          "publish_time": "Sun Nov 09 13:41:00 +0800 2014",
+          "text": "Hello Treehole! :smile:",
+          "images": [],
+          "author_id": "xiao_wang",
+          "feedbacks": [
             {
-              "feedback_id" : new mongodb.ObjectID("547429955659ef9816649223")
-            }
+              "type": "vote",
+              "text": "like",
+              "count": 10
+            },
+            {
+              "type": "vote",
+              "text": "dislike",
+              "count": 5
+            },
           ],
-          "references" : [],
-          "options" : {
-            "anonymous" : true,
-            "channel_id" : "testChannel"
+          "references": [ ],
+          "options": {
+            "anonymous": true,
+            "channel_id": "testChannel"
           }
         }
       ];
@@ -40,30 +45,22 @@ module.exports = function (db) {
     if (err) {
       var comments = [
         {
-          "hole_id" : "547429245659ef9816649219",
-          "post_time" : "Sun Nov 09 17:56:55 +0800 2014",
-          "text" : "This is test comment 2",
-          "from_user" : {
-            "uid" : "xiao_zhang"
-          },
-          "reply_to" : {
-            "comment_id" : "545e28a80000000000000000"
-          },
-          "options" : {
-            "anonymous" : true,
-            "secret" : false
+            "hole_id" : "547429245659ef9816649219",
+            "post_time" : "Sun Nov 09 17:56:55 +0800 2014",
+            "text" : "This is test comment 2",
+            "from_user" : "xiao_zhang",
+            "reply_to" : "545e28a80000000000000000",
+            "options" : {
+              "anonymous" : true,
+              "secret" : false
           }
         },
         {
           "hole_id" : "547429245659ef9816649219",
           "post_time" : "Sun Nov 09 17:56:55 +0800 2014",
           "text" : "This is a simple comment",
-          "from_user" : {
-            "uid" : "xiao_wang"
-          },
-          "reply_to" : {
-            "comment_id" : "545e28a80000000000000000"
-          },
+          "from_user" : "xiao_wang",
+          "reply_to" : "545e28a80000000000000000",
           "options" : {
             "anonymous" : true,
             "secret" : false
@@ -102,18 +99,24 @@ module.exports = function (db) {
       });
     }
   });
-  db.collection('feedbacks', {strict: true}, function (err, collection) {
+  db.collection('roles', {strict: true}, function (err, collection) {
     if (err) {
-      var feedbacks = [
+      var roles = [
         {
-          _id : new mongodb.ObjectID("547429955659ef9816649223"),
-          "type": "vote",
-          "text": "like",
-          "count": 10
+          "user": "xiao_wang",
+          "hole": new mongodb.ObjectID("547429245659ef9816649219"),
+          "avatar": null,
+          "text": "楼主"
+        },
+        {
+          "user": "xiao_zhang",
+          "hole": new mongodb.ObjectID("547429245659ef9816649219"),
+          "avatar": null,
+          "text": "沙发"
         }
       ];
-      db.collection('feedbacks', function (err, collection) {
-        collection.insert(feedbacks, {safe: true}, function (err, result) {
+      db.collection('roles', function (err, collection) {
+        collection.insert(roles, {safe: true}, function (err, result) {
           console.log(result);
         });
       });

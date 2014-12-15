@@ -10,7 +10,7 @@ var router = express.Router();
 //POST /treehole: create tree-hole
 router.post('/', function (req, res, next) {
   var hole = {};
-  hole.author = { uid: req.param('author') };
+  hole.author = req.param('author');
   hole.options = {
     channel_id: req.param('channel'),
     anonymous: req.param('anonymous')
@@ -27,7 +27,7 @@ router.post('/', function (req, res, next) {
       });
     },
 
-    // insert feedback
+    // insert hole
     function (channel, callback) {
       var feedbacks;
       if (!req.param('feedbacks') || req.param('feedbacks').length === 0) {
@@ -39,25 +39,21 @@ router.post('/', function (req, res, next) {
           return { type: 'vote', text: elem, count: 0 };
         });
       }
-      db.collection('feedbacks').insert(feedbacks, function (err, feedbacks) {
-        if (err) {
-          return callback(err);
-        }
-        hole.feedbacks = _.map(feedbacks, function (elem) {
-          return { feedback_id: elem._id };
-        });
-        callback(null, hole);
+      holes.feedbacks = feedbacks;
+      db.collection('holes').insert(hole, function (err, hole) {
+        callback(null, hole[0]);
       });
     },
 
-    // insert hole
     function (hole, callback) {
-      db.collection('holes').insert(hole, function (err, hole) {
-        if (err) {
-          callback(err);
-        } else {
-          callback(null, hole[0]);
-        }
+      var role = {
+        user: hole.author_id,
+        hole: hole._id,
+        avatar: null,
+        text: "路人甲"
+      };
+      db.collection('roles').insert(role, function (err, hole) {
+        callback(null, hole);
       });
     }
 
@@ -97,12 +93,15 @@ router.get('/', function (req, res, next) {
         holes,
         function (hole, callback_role) {
           var query = {
-            user: hole.author,
-            hole: { hole_id: hole._id }
+            user: hole.author_id,
+            hole: hole._id
           };
           db.collection('roles').findOne(query, function (err, role) {
-            delete hole.author;
+            delete hole.author_id;
             hole.user_role = role;
+            delete hole.user_role._id;
+            delete hole.user_role.user;
+            delete hole.user_role.hole;
             callback_role(null);
           });
         },
@@ -139,37 +138,27 @@ router.get('/:id', function (req, res, next) {
       });
     },
 
+    // retrieve role
     function (hole, callback) {
       var query = {
-        user: hole.author,
-        hole: { hole_id: hole._id }
+        user: hole.author_id,
+        hole:  hole._id
       };
       db.collection('roles').findOne(query, function (err, role) {
-        delete hole.author;
+        delete hole.author_id;
         hole.user_role = role;
-        callback_role(null);
+        delete hole.user_role._id;
+        delete hole.user_role.user;
+        delete hole.user_role.hole;
+        callback(null, hole);
       });
     },
 
-    // retrieve feedback
-    function (hole, callback) {
-      var feedbacksQuery = _.map(hole.feedbacks, function (elem) {
-        return { _id: elem.feedback_id };
-      });
-      db.collection('feedbacks').find({ $or: feedbacksQuery }).toArray(function (err, feedbacks) {
-        if (err) {
-          return callback(err);
-        }
-        hole.feedbacks = feedbacks;
-        callback(null, hole);
-      });
-    }
-
-  ], function (err, result) {
+  ], function (err, hole) {
     if (err) {
       next(err);
     }
-    res.send(result);
+    res.send(hole);
   });
 });
 
@@ -202,8 +191,8 @@ router.post('/:hole_id/comments', function (req, res, next) {
   var comment = {};
   comment.hole_id = req.param('hole_id');
   comment.text = req.param('text');
-  comment.from_user = { uid: req.param('from_user') };
-  comment.reply_to = { comment_id: req.param('reply_to') };
+  comment.from_user = req.param('from_user');
+  comment.reply_to = req.param('reply_to');
   comment.options = {
     anonymous : Boolean(req.param('anonymous')),
     secret : Boolean(req.param('secret'))
