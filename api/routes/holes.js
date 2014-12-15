@@ -227,10 +227,10 @@ router.get('/:hole_id/comments', function (req, res, next) {
 
 router.post('/:hole_id/comments', function (req, res, next) {
   var comment = {};
-  comment.hole_id = req.param('hole_id');
+  comment.hole_id = new mongodb.ObjectID(req.param('hole_id'));
   comment.text = req.param('text');
   comment.from_user = req.param('from_user');
-  comment.reply_to = req.param('reply_to');
+  comment.reply_to = new mongodb.ObjectID(req.param('reply_to'));
   comment.options = {
     anonymous : Boolean(req.param('anonymous')),
     secret : Boolean(req.param('secret'))
@@ -266,23 +266,32 @@ router.post('/:hole_id/comments', function (req, res, next) {
 });
 
 router.post('/:hole_id/feedbacks/:feedback_id', function (req, res, next) {
-  if (!mongodb.ObjectID.isValid(req.param('feedback_id'))) {
-    return next(error('invalid feedback id', { status: 404 }));
-  }
-  var options = {};
-  if (req.param('action') === 'ok') {
-    options = { $inc: { count: 1 } };
-  }
-  else {
-    options = { $inc: { count: -1 } };
-  }
-  db.collection('feedbacks').findAndModify({ _id: new mongodb.ObjectID(req.param('feedback_id')) },
-    {}, options, { new: true }, function (err, result) {
-      if (err) {
-        return next(err);
+  async.waterfall([
+    function (callback) {
+      db.collection('holes').findOne({ _id: new mongodb.ObjectID(req.param('hole_id')) },
+        function (err, hole) {
+          callback(err, hole);
+        });
+    },
+    function (hole, callback) {
+      if (req.param('action') === 'ok') {
+        hole.feedbacks[req.param('feedback_id')].count++;
       }
-      res.status(201).send(result.count.toString());
-    });
+      else {
+        hole.feedbacks[req.param('feedback_id')].count--;
+      }
+      db.collection('holes').findAndModify({ _id: new mongodb.ObjectID(req.param('hole_id')) },
+        {}, hole, {new: true}, function (err, hole) {
+          callback(err, hole);
+        });
+    }
+  ], function (err, hole) {
+    if(err) {
+      next(err);
+    } else {
+      res.status(201).send(hole.feedbacks[req.param('feedback_id')].count.toString());
+    }
+  });
 });
 
 

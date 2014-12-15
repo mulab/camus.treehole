@@ -19,7 +19,7 @@
           <div class="left-part">
             <div class="btn-group" role="group">
               {% for feedback in treehole.feedbacks %}
-              <button type="button" class="btn btn-default feedback-button" feedback-id="{{ feedback._id }}">
+              <button type="button" class="btn btn-default feedback-button" feedback-id="{{ loop.index0 }}">
                 {{ feedback.text }} <span class="badge">{{ feedback.count }}</span>
               </button>
               {% endfor %}
