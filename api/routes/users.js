@@ -13,7 +13,7 @@ var crypto = require('crypto');
 router.post('/', function (req, res, next) {
   var user = {};
   user.user_id = req.param('user_id');
-  user.screen_name = req.param('sceen_name');
+  user.screen_name = req.param('screen_name');
   user.join_time = Date();
   user.contact_info = null;
   user.links = null;
@@ -25,7 +25,7 @@ router.post('/', function (req, res, next) {
     if(err) {
       next(err);
     } else {
-      res.status(201).send(user);
+      res.status(201).send(user[0]);
     }
   });
 });
@@ -36,7 +36,11 @@ router.get('/:user_id', function (req, res, next) {
     if(err) {
       next(err);
     } else {
-      res.send(user);
+      if(user) {
+        res.send(user);
+      } else {
+        res.send(null);
+      }
     }
   });
 });

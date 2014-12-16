@@ -15,12 +15,12 @@ router.post('/', function (req, res, next){
   hole.author = req.session.user;
   hole.text = textContent;
   hole.feedbacks = req.param('feedbacks');
-  if (!Array.isArray(hole.feedbacks)) {
-    hole.feedbacks = [hole.feedbacks];
-  }
-  hole.channel = "testChannel";
-  restRequest.use('treehole').post('/holes', hole, next)
-    .success(function () {
+      if (!Array.isArray(hole.feedbacks)) {
+        hole.feedbacks = [hole.feedbacks];
+      }
+      hole.channel = "testChannel";
+      restRequest.use('treehole').post('/holes', hole, next)
+        .success(function () {
       res.redirect('/');
     });
 });
