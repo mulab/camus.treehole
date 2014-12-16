@@ -1,8 +1,12 @@
 {% extends 'layout.html' %}
 {% block title %} A sample hole {% endblock %}
 {% block css %}
-{% parent %}
-<link rel="stylesheet" href="/css/hole/show.css">
+  {% parent %}
+  <link rel="stylesheet" href="/css/hole/show.css">
+{% endblock %}
+{% block js %}
+  {% parent %}
+  <script src="/js/hole/show.js"></script>
 {% endblock %}
 {% block content %}
 <div class="container">
@@ -12,6 +16,11 @@
         <div class="text">
           {{ treehole.text }}
         </div>
+        {% for image in treehole.images %}
+        <div class="image">
+          <img src="{{ image }}">
+        </div>
+        {% endfor %}
         <div class="bottom-text">
           <div class="author">
             {% if treehole.options.anonymous %}
@@ -86,9 +95,4 @@
     </div>
   </div>
 </div>
-{% endblock %}
-
-{% block js %}
-{% parent %}
-<script src="/js/hole/show.js"></script>
 {% endblock %}

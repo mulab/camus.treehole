@@ -23,6 +23,8 @@
     "$": true,
     "moment": true,
     "freewall": true,
-    "window": true
+    "window": true,
+    "async": true,
+    "alert": true
   }
 }

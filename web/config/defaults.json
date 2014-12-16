@@ -6,5 +6,18 @@
       "port": 9001,
       "base_url": ""
     }
+  },
+  "upyun": {
+    "request_base_url": "http://v0.api.upyun.com",
+    "show_url": "",
+    "bucket": "",
+    "api_secret": "",
+    "valid_minutes": 10,
+    "upload_options": {
+      "x-gmkerl-unsharp": false,
+      "x-gmkerl-quality": 70,
+      "x-gmkerl-type": "fix_max",
+      "x-gmkerl-value": 1024
+    }
   }
 }

@@ -1,3 +1,8 @@
 {
-  "debug": true
+  "debug": true,
+  "upyun": {
+    "show_url": "http://treehole-dev.b0.upaiyun.com",
+    "bucket": "treehole-dev",
+    "api_secret": "+25h5DVc1aF9VVSv7FG6z2hYGgI="
+  }
 }

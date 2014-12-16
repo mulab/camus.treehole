@@ -5,22 +5,75 @@ $(function () {
   wall.fitWidth();
 
   var postHoleForm = $('#post-hole-form');
-  postHoleForm.submit(function () {
-    if ($(this).find('textarea').val().length === 0) {
+  var postHoleOptions = $('.post-hole .options');
+  $('.post-hole .submit-button button').click(function () {
+    if (postHoleForm.find('textarea').val().length === 0) {
       alert('内容不能为空！');
-      return false;
+      return;
     }
-    $(this).find('input[name=feedbacks]').remove();
+    postHoleForm.find('input[name=feedbacks]').remove();
     feedbackList.find('.term-container .term .content').each(function () {
       $('<input type="hidden" name="feedbacks" />').val($(this).html()).appendTo(postHoleForm);
     });
-  });
-  $('.post-hole .submit-button button').click(function () {
-    postHoleForm.submit();
+    var imageFiles = postHoleOptions.find('.image-upload input:file').prop('files');
+    async.map(imageFiles, function (image, callback) {
+      async.waterfall([
+        function (callback) {
+          $.post('/image', function (data) {
+            callback(null, data);
+          }).fail(function (jqXHR, textStatus) {
+            callback(textStatus);
+          });
+        },
+
+        function (res, callback) {
+          var url = res.request.url;
+          var imageId = res.id;
+          var params = res.request.params;
+          var fd = new FormData();
+          fd.append('policy', params.policy);
+          fd.append('signature', params.signature);
+          fd.append('file', image);
+          $.ajax({
+            url: url,
+            type: 'POST',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+              data = JSON.parse(data);
+              var body = data.code + '&' + data.message + '&' + data.url + '&' + data.time;
+              callback(null, imageId, body, data.sign);
+            },
+            error: function (jqXHR, textStatus) {
+              callback(textStatus);
+            }
+          });
+        },
+
+        function (imageId, body, sign, callback) {
+          $.post('/image/' + imageId + '/ready', { body: body, sign: sign }, function () {
+            callback(null, imageId);
+          }).fail(function (jqXHR, textStatus) {
+            callback(textStatus);
+          });
+        }
+
+      ], callback);
+    }, function (err, imageIds) {
+      if (err) {
+        alert(err);
+        return;
+      }
+      postHoleForm.find('input[name=images]').remove();
+      $.each(imageIds, function (index, imageId) {
+        $('<input type="hidden" name="images" />').val(imageId).appendTo(postHoleForm);
+      });
+      postHoleForm.submit();
+    });
   });
 
-  var postHoleOptions = $('.post-hole .options');
-  postHoleOptions.find('.anonymous').change(function () {
+  postHoleOptions.find('.anonymous input:checkbox').change(function () {
     postHoleForm.find('input[name=anonymous]').prop('checked', $(this).prop('checked'));
   });
 

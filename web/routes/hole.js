@@ -2,9 +2,11 @@
 
 var express = require('express');
 var router = express.Router();
+var _ = require('lodash');
 var async = require('async');
 var restRequest = require('../helper/rest-request');
 var error = require('../../common/helper/error');
+var upyun = require('../helper/upyun');
 
 router.post('/', function (req, res, next) {
   var textContent = req.param('txtContent');
@@ -19,6 +21,10 @@ router.post('/', function (req, res, next) {
   if (!Array.isArray(hole.feedbacks)) {
     hole.feedbacks = [hole.feedbacks];
   }
+  hole.images = req.param('images');
+  if (hole.images && !Array.isArray(hole.images)) {
+    hole.images = [hole.images];
+  }
   hole.channel = "testChannel";
   restRequest.use('treehole').post('/holes', hole, next)
     .success(function () {
@@ -32,6 +38,9 @@ router.get('/:id', function (req, res, next) {
     function (callback) {
       restRequest.use('treehole').get('/holes/' + req.param('id'), callback)
         .success(function (hole) {
+          hole.images = _.map(hole.images, function (imageId) {
+            return upyun.getShowUrl(imageId);
+          });
           callback(null, hole);
         })
         .fail(function () {

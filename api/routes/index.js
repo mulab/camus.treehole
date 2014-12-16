@@ -6,6 +6,7 @@ module.exports = function (app) {
   app.use('/users', require('./users'));
   app.use('/holes', require('./holes'));
   app.use('/channels', require('./channels'));
+  app.use('/images', require('./images'));
 
   app.use('/status', function (req, res, next) {
     db.collection('holes', {strict: true}, function (err, collection) {

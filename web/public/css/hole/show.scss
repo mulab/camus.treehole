@@ -38,10 +38,16 @@
       .text {
         font-size: 20pt;
         font-family: $content-font;
-        padding: 20px 20px 10px 20px;
+        margin: 20px 20px 10px 20px;
+      }
+      .image {
+        margin: 10px;
+        img {
+          max-width: 100%;
+        }
       }
       .bottom-text {
-        padding-left: 18px;
+        margin-left: 18px;
         .author, .publish-time {
           display: inline-block;
         }

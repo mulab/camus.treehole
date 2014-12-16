@@ -39,7 +39,16 @@
     .options {
       position: absolute;
       right: 80px;
-      bottom: 8px;
+      bottom: 2px;
+      .image-upload, .anonymous {
+        display: inline-block;
+      }
+      .image-upload {
+
+      }
+      .anonymous {
+        margin-left: 10px;
+      }
     }
 
     .submit-button {

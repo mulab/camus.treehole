@@ -2,7 +2,14 @@
 {% block title %} 清华树洞 {% endblock %}
 {% block css %}
   {% parent %}
+  <link rel="stylesheet" href="/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.css">
   <link rel="stylesheet" href="/css/index.css">
+{% endblock %}
+{% block js %}
+  {% parent %}
+  <script src="/bower_components/freewall/freewall.js"></script>
+  <script src="/bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.js"></script>
+  <script src="/js/index.js"></script>
 {% endblock %}
 {% block content %}
 <div class="container">
@@ -41,10 +48,24 @@
       </div>
 
       <div class="options">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" checked="checked" class="anonymous" />匿名
-          </label>
+        <div class="image-upload">
+          <div class="fileinput fileinput-new" data-provides="fileinput">
+            <span class="fileinput-filename"></span>
+            <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+            <span class="btn btn-default btn-file">
+              <span class="fileinput-new">选择图片</span>
+              <span class="fileinput-exists">更改</span>
+              <input type="file" accept=".jpg,.png" />
+            </span>
+          </div>
+        </div>
+
+        <div class="anonymous">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" checked="checked" />匿名
+            </label>
+          </div>
         </div>
       </div>
 
@@ -77,9 +98,4 @@
     </div>
   </div>
 </div>
-{% endblock %}
-
-{% block js %}
-  {% parent %}
-  <script src="/js/index.js"></script>
 {% endblock %}

@@ -5,6 +5,7 @@ module.exports = function (app) {
   app.use(require('./authentication'));
   app.use('/', require('./home'));
   app.use('/hole', require('./hole'));
+  app.use('/image', require('./image'));
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {

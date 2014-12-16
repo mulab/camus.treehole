@@ -16,7 +16,7 @@ router.post('/', function (req, res, next) {
     anonymous: Boolean(req.param('anonymous'))
   };
   hole.text = req.param('text');
-  hole.image = req.param('images');
+  hole.images = req.param('images');  // TODO check existence & availability
   hole.references = req.param('references');
   hole.publish_time = Date();
   async.waterfall([
