@@ -19,6 +19,11 @@ $(function () {
     postHoleForm.submit();
   });
 
+  var postHoleOptions = $('.post-hole .options');
+  postHoleOptions.find('.anonymous').change(function () {
+    postHoleForm.find('input[name=anonymous]').prop('checked', $(this).prop('checked'));
+  });
+
   var feedbackList = $('.post-hole .feedback-list');
   var initFeedbackTerm = function (term) {
     term.find('.delete-button').click(function () {

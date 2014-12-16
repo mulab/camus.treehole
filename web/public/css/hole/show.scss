@@ -40,11 +40,22 @@
         font-family: $content-font;
         padding: 20px 20px 10px 20px;
       }
-      .publish-time {
-        font-size: 10pt;
-        font-family: $time-font;
-        padding-left: 20px;
-        color: gray;
+      .bottom-text {
+        padding-left: 18px;
+        .author, .publish-time {
+          display: inline-block;
+        }
+        .author {
+          font-size: 10pt;
+          font-family: $content-font;
+          color: gray;
+          margin-right: 4px;
+        }
+        .publish-time {
+          font-size: 10pt;
+          font-family: $time-font;
+          color: gray;
+        }
       }
       .left-part {
         position: absolute;
@@ -69,13 +80,25 @@
         font-family: $content-font;
         padding: 15px 20px 5px 20px;
       }
-      .publish-time {
-        font-size: 10pt;
-        font-family: $time-font;
+      .bottom-text {
         padding-left: 20px;
         padding-bottom: 15px;
-        color: gray;
+        .author, .publish-time {
+          display: inline-block;
+        }
+        .author {
+          font-size: 10pt;
+          font-family: $content-font;
+          color: gray;
+          margin-right: 4px;
+        }
+        .publish-time {
+          font-size: 10pt;
+          font-family: $time-font;
+          color: gray;
+        }
       }
+
       .floor {
         position: absolute;
         top: 0;
@@ -90,7 +113,14 @@
 
     .post-comment {
       display: none;
-      padding: 10px 10px 0 10px;
+      padding: 10px 10px 25px 10px;
+      position: relative;
+      .options {
+        font-size: 9pt;
+        position: absolute;
+        right: 15px;
+        bottom: 2px;
+      }
     }
   }
 }

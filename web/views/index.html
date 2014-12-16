@@ -11,6 +11,7 @@
       <div class="input-area">
         <form id="post-hole-form" action="/hole" method="post">
           <textarea name="txtContent" class="form-control" rows="5"></textarea>
+          <input type="checkbox" style="display: none;" checked="checked" name="anonymous" />
         </form>
       </div>
 
@@ -38,6 +39,15 @@
         </div>
 
       </div>
+
+      <div class="options">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" checked="checked" class="anonymous" />匿名
+          </label>
+        </div>
+      </div>
+
       <div class="submit-button">
         <button type="button" class="btn btn-primary">发布</button>
       </div>
@@ -49,8 +59,13 @@
           <div class="text">
             {{ hole.text }}
           </div>
-          <div class="publish-time">
-            <span class="time-need-format">{{ hole.publish_time }}</span>
+          <div class="bottom-text">
+            <div class="author">
+              <span>Xiao ming</span>
+            </div>
+            <div class="publish-time">
+              <span class="time-need-format">{{ hole.publish_time }}</span>
+            </div>
           </div>
         </div>
       </div>

@@ -36,6 +36,12 @@
       }
     }
 
+    .options {
+      position: absolute;
+      right: 80px;
+      bottom: 8px;
+    }
+
     .submit-button {
       position: absolute;
       right: 10px;
@@ -63,11 +69,23 @@
         font-size: 20pt;
         font-family: $content-font;
       }
-      .publish-time {
-        font-size: 10pt;
-        font-family: $time-font;
-        color: gray;
+      .bottom-text {
+        .author, .publish-time {
+          display: inline-block;
+        }
+        .author {
+          font-size: 10pt;
+          font-family: $content-font;
+          color: gray;
+          margin-right: 4px;
+        }
+        .publish-time {
+          font-size: 10pt;
+          font-family: $time-font;
+          color: gray;
+        }
       }
+
     }
 
     .hole.hover-state {

@@ -12,9 +12,15 @@
         <div class="text">
           {{ treehole.text }}
         </div>
-        <div class="publish-time">
-          <span class="time-need-format">{{ treehole.publish_time }}</span>
+        <div class="bottom-text">
+          <div class="author">
+            <span>Xiao ming</span>
+          </div>
+          <div class="publish-time">
+            <span class="time-need-format">{{ treehole.publish_time }}</span>
+          </div>
         </div>
+
         <div class="bottom-part">
           <div class="left-part">
             <div class="btn-group" role="group">
@@ -39,7 +45,18 @@
       </div>
       <div class="block post-comment">
         <form role="form" method="post" action="/hole/{{ treehole._id }}/comment">
-          <div class="form-group"><textarea name="comment-text" class="reply-input form-control"></textarea></div>
+          <div class="content-editor">
+            <div class="form-group">
+              <textarea name="comment-text" class="reply-input form-control"></textarea>
+            </div>
+          </div>
+          <div class="options">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" checked="checked" class="anonymous" />匿名
+              </label>
+            </div>
+          </div>
         </form>
       </div>
       {% for comment in comments %}
@@ -48,8 +65,13 @@
         <div class="text">
             {{ comment.text }}
         </div>
-        <div class="publish-time">
-          <span class="time-need-format">{{ comment.post_time }}</span>
+        <div class="bottom-text">
+          <div class="author">
+            <span>Xiao ming</span>
+          </div>
+          <div class="publish-time">
+            <span class="time-need-format">{{ comment.post_time }}</span>
+          </div>
         </div>
       </div>
       {% endfor %}
