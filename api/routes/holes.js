@@ -13,7 +13,7 @@ router.post('/', function (req, res, next) {
   hole.author_id = req.param('author');
   hole.options = {
     channel_id: req.param('channel'),
-    anonymous: req.param('anonymous')
+    anonymous: Boolean(req.param('anonymous'))
   };
   hole.text = req.param('text');
   hole.image = req.param('images');
@@ -51,16 +51,24 @@ router.post('/', function (req, res, next) {
         user: hole.author_id,
         hole: hole._id,
         avatar: null,
-        text: "路人甲"
+        text: "匿名用户"
       };
-      db.collection('roles').insert(role, function (err, role) {
-        delete hole.author_id;
-        hole.user_role = role[0];
-        delete hole.user_role._id;
-        delete hole.user_role.user;
-        delete hole.user_role.hole;
-        callback(null, hole);
-      });
+      if(hole.options.anonymous) {
+        db.collection('roles').insert(role, function (err, role) {
+          delete hole.author_id;
+          hole.user_role = role[0];
+          delete hole.user_role._id;
+          delete hole.user_role.user;
+          delete hole.user_role.hole;
+          callback(err, hole);
+        });
+      } else {
+        db.collection('users').findOne({user_id: hole.author_id}, function (err, user) {
+          delete hole.author_id;
+          hole.user_role = user;
+          callback(err, hole);
+        });
+      }
     }
 
   ], function (err, hole) {
@@ -102,14 +110,22 @@ router.get('/', function (req, res, next) {
             user: hole.author_id,
             hole: hole._id
           };
-          db.collection('roles').findOne(query, function (err, role) {
-            delete hole.author_id;
-            hole.user_role = role;
-            delete hole.user_role._id;
-            delete hole.user_role.user;
-            delete hole.user_role.hole;
-            callback(err);
-          });
+          if(hole.options.anonymous) {
+            db.collection('roles').findOne(query, function (err, role) {
+              delete hole.author_id;
+              hole.user_role = role;
+              delete hole.user_role._id;
+              delete hole.user_role.user;
+              delete hole.user_role.hole;
+              callback(err);
+            });
+          } else {
+            db.collection('users').findOne({user_id: hole.author_id}, function (err, user) {
+              delete hole.author_id;
+              hole.user_role = user;
+              callback(err);
+            });
+          }
         },
         function(err) {
           callback(err, holes);
@@ -140,7 +156,7 @@ router.get('/:id', function (req, res, next) {
         if (!hole) {
           return callback(error('invalid hole id', { status: 404 }));
         }
-        callback(null, hole);
+        callback(err, hole);
       });
     },
 
@@ -150,14 +166,22 @@ router.get('/:id', function (req, res, next) {
         user: hole.author_id,
         hole:  hole._id
       };
-      db.collection('roles').findOne(query, function (err, role) {
-        delete hole.author_id;
-        hole.user_role = role;
-        delete hole.user_role._id;
-        delete hole.user_role.user;
-        delete hole.user_role.hole;
-        callback(null, hole);
-      });
+      if(hole.options.anonymous) {
+        db.collection('roles').findOne(query, function (err, role) {
+          delete hole.author_id;
+          hole.user_role = role;
+          delete hole.user_role._id;
+          delete hole.user_role.user;
+          delete hole.user_role.hole;
+          callback(err, hole);
+        });
+      } else {
+        db.collection('users').findOne({user_id: hole.author_id}, function (err, user) {
+          delete hole.author_id;
+          hole.user_role = user;
+          callback(err, hole);
+        });
+      }
     }
 
   ], function (err, hole) {
@@ -202,14 +226,22 @@ router.get('/:hole_id/comments', function (req, res, next) {
             user: comment.from_user,
             hole: comment.hole_id
           };
-          db.collection('roles').findOne(query, function (err, role) {
-            delete comment.from_user;
-            comment.user_role = role;
-            delete comment.user_role._id;
-            delete comment.user_role.user;
-            delete comment.user_role.hole;
-            callback(err);
-          });
+          if(comment.options.anonymous) {
+            db.collection('roles').findOne(query, function (err, role) {
+              delete comment.from_user;
+              comment.user_role = role;
+              delete comment.user_role._id;
+              delete comment.user_role.user;
+              delete comment.user_role.hole;
+              callback(err);
+            });
+          } else {
+            db.collection('users').findOne({user_id: comment.author_id}, function (err, user) {
+              delete comment.from_user;
+              comment.user_role = user;
+              callback(err);
+            });
+          }
         },
         function (err) {
           callback(err, comments);
@@ -246,15 +278,42 @@ router.post('/:hole_id/comments', function (req, res, next) {
 
     // create corresponding role
     function (comment, callback) {
-      var role = {
-        user: comment.from_user,
-        hole: comment.hole_id,
-        avatar: null,
-        text: "路人甲"
-      };
-      db.collection('roles').insert(role, function (err) {
-        callback(err, comment);
-      });
+      if(comment.options.anonymous) {
+        db.collection('roles').findOne({
+          user: comment.from_user,
+          hole: comment.hole_id
+        }, function (err, role) {
+          if(role) {
+            delete comment.from_user;
+            comment.user_role = role;
+            delete comment.user_role._id;
+            delete comment.user_role.user;
+            delete comment.user_role.hole;
+            callback(err, comment);
+          } else {
+            var role_insert = {
+              user: comment.from_user,
+              hole: comment.hole_id,
+              avatar: null,
+              text: "匿名用户"
+            };
+            db.collection('roles').insert(role_insert, function (err, role) {
+              delete comment.from_user;
+              comment.user_role = role[0];
+              delete comment.user_role._id;
+              delete comment.user_role.user;
+              delete comment.user_role.hole;
+              callback(err, comment);
+            });
+          }
+        });
+      } else {
+        db.collection('users').findOne({user_id: comment.from_user}, function (err, user) {
+          delete comment.from_user;
+          comment.user_role = user;
+          callback(err, comment);
+        });
+      }
     }
   ], function (err, comment) {
     if(err) {
