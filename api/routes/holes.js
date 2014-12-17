@@ -332,7 +332,7 @@ router.post('/:hole_id/feedbacks/:feedback_id', function (req, res, next) {
     },
     function (err, operation) {
       if (err) {
-        next(err)
+        next(err);
       } else {
         if (operation) {
           if (operation.feedbacks[req.param('feedback_id')]) {
