@@ -6,7 +6,7 @@ var db = require('./config/db');
 
 db.connect(function (err) {
   if (!err) {
-    server.listen(process.env.PORT || 9000, function () {
+    server.listen(process.env.PORT || 9001, function () {
       console.log('API server listening');
     });
   } else {

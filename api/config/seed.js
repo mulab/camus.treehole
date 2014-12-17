@@ -51,7 +51,7 @@ module.exports = function (db) {
             "from_user" : "xiao_zhang",
             "reply_to" : new mongodb.ObjectID("545e28a80000000000000000"),
             "options" : {
-              "anonymous" : true,
+              "anonymous" : false,
               "secret" : false
           }
         },
@@ -191,21 +191,6 @@ module.exports = function (db) {
         }
       ];
       db.collection('roles', function (err, collection) {
-        collection.insert(roles, {safe: true}, function (err, result) {
-          console.log(result);
-        });
-      });
-    }
-  });
-  db.collection('auth', {strict: true}, function (err) {
-    if (err) {
-      var roles = [
-        {
-          "username": "test",
-          "password": "81dc9bdb52d04dc20036dbd8313ed055"
-        }
-      ];
-      db.collection('auth', function (err, collection) {
         collection.insert(roles, {safe: true}, function (err, result) {
           console.log(result);
         });
