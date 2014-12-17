@@ -19,12 +19,12 @@ module.exports = function (db) {
             {
               "type": "vote",
               "text": "like",
-              "count": 10
+              "count": 1
             },
             {
               "type": "vote",
               "text": "dislike",
-              "count": 5
+              "count": 1
             }
           ],
           "references": [ ],
@@ -192,6 +192,27 @@ module.exports = function (db) {
       ];
       db.collection('roles', function (err, collection) {
         collection.insert(roles, {safe: true}, function (err, result) {
+          console.log(result);
+        });
+      });
+    }
+  });
+  db.collection('operations', {strict: true}, function (err) {
+    if (err) {
+      var operations = [
+        {
+          "user_id": "xiao_wang",
+          "hole_id": new mongodb.ObjectID("547429245659ef9816649219"),
+          "feedbacks": [true, false]
+        },
+        {
+          "user_id": "xiao_zhang",
+          "hole_id": new mongodb.ObjectID("547429245659ef9816649219"),
+          "feedbacks": [false, true]
+        }
+      ];
+      db.collection('operations', function (err, collection) {
+        collection.insert(operations, {safe: true}, function (err, result) {
           console.log(result);
         });
       });

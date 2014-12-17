@@ -42,7 +42,11 @@ $(function () {
     var url = '/hole/' + $('.hole-container').attr('hole-id') + '/feedbacks/' + $(this).attr('feedback-id');
     $(this).addClass('disabled');
     $.post(url, { action: 'ok' }, $.proxy(function (data) {
-      $(this).find('.badge').html(data);
+      if(data.status === 'success') {
+        $(this).find('.badge').html(data.count);
+      } else {
+        alert(data.message)
+      }
       $(this).removeClass('disabled');
     }, this));
   });
