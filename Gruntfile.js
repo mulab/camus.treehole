@@ -15,6 +15,9 @@ module.exports = function (grunt) {
       },
       test: {
         NODE_ENV: 'test'
+      },
+      production: {
+        NODE_ENV: 'production'
       }
     },
     express: {
@@ -25,6 +28,20 @@ module.exports = function (grunt) {
         options: {
           script: 'app.js',
           debug: true
+        }
+      },
+      web: {
+        options: {
+          script: 'web/index.js',
+          debug: false,
+          port: 9000
+        }
+      },
+      api: {
+        options: {
+          script: 'api/index.js',
+          debug: false,
+          port: 9001
         }
       }
     },
@@ -40,6 +57,14 @@ module.exports = function (grunt) {
           'routes/**/*.js'
         ],
         tasks: ['express:dev', 'wait'],
+        options: {
+          livereload: true,
+          nospawn: true //Without this option specified express won't be reloaded
+        }
+      },
+      deploy: {
+        files: [],
+        tasks: ['wait'],
         options: {
           livereload: true,
           nospawn: true //Without this option specified express won't be reloaded
@@ -76,11 +101,22 @@ module.exports = function (grunt) {
         command: 'mongod',
         path: 'db'
       }
+    },
+    wait: {
+      all: {
+        time: 1500
+      },
+      deploy: {
+        time: 7500
+      }
     }
   });
 
   // Used for delaying livereload until after server has restarted
-  grunt.registerTask('wait', function () {
+  grunt.registerTask('wait', function (target) {
+    target = target || 'all';
+    var config = grunt.config('wait')[target];
+    config = config || grunt.config('wait').all;
     grunt.log.ok('Waiting for server reload...');
 
     var done = this.async();
@@ -88,7 +124,7 @@ module.exports = function (grunt) {
     setTimeout(function () {
       grunt.log.writeln('Done waiting!');
       done();
-    }, 1500);
+    }, config.time);
   });
 
   var mongo;
@@ -138,4 +174,12 @@ module.exports = function (grunt) {
     'newer:jshint',
     'test'
   ]);
+  grunt.registerTask('deploy', function (target) {
+    grunt.task.run([
+      'wait:deploy',
+      'express:web',
+      'express:api',
+      'watch:deploy'
+    ]);
+  });
 };
