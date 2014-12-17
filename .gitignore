@@ -11,7 +11,9 @@ db/
 /node_modules
 
 # bower files
-/public/bower_components
+/web/public/bower_components
 
 # static files
-/public
+/web/public
+
+npm-debug.log
