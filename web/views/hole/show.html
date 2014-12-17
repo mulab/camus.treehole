@@ -14,7 +14,11 @@
         </div>
         <div class="bottom-text">
           <div class="author">
-            <span>Xiao ming</span>
+            {% if treehole.options.anonymous %}
+            <span>{{ treehole.user_role.text }}</span>
+            {% else %}
+            <span>{{ treehole.user_role.screen_name }}</span>
+            {% endif %}
           </div>
           <div class="publish-time">
             <span class="time-need-format">{{ treehole.publish_time }}</span>
@@ -53,7 +57,7 @@
           <div class="options">
             <div class="checkbox">
               <label>
-                <input type="checkbox" checked="checked" class="anonymous" />匿名
+                <input type="checkbox" checked="checked" name="anonymous" />匿名
               </label>
             </div>
           </div>
@@ -67,7 +71,11 @@
         </div>
         <div class="bottom-text">
           <div class="author">
-            <span>Xiao ming</span>
+            {% if comment.options.anonymous %}
+            <span>{{ comment.user_role.text }}</span>
+            {% else %}
+            <span>{{ comment.user_role.screen_name }}</span>
+            {% endif %}
           </div>
           <div class="publish-time">
             <span class="time-need-format">{{ comment.post_time }}</span>

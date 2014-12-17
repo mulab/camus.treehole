@@ -61,7 +61,11 @@
           </div>
           <div class="bottom-text">
             <div class="author">
-              <span>Xiao ming</span>
+              {% if hole.options.anonymous %}
+              <span>{{ hole.user_role.text }}</span>
+              {% else %}
+              <span>{{ hole.user_role.screen_name }}</span>
+              {% endif %}
             </div>
             <div class="publish-time">
               <span class="time-need-format">{{ hole.publish_time }}</span>

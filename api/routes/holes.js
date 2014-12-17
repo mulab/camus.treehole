@@ -236,7 +236,7 @@ router.get('/:hole_id/comments', function (req, res, next) {
               callback(err);
             });
           } else {
-            db.collection('users').findOne({user_id: comment.author_id}, function (err, user) {
+            db.collection('users').findOne({user_id: comment.from_user}, function (err, user) {
               delete comment.from_user;
               comment.user_role = user;
               callback(err);
