@@ -122,10 +122,11 @@
       padding: 10px 10px 25px 10px;
       position: relative;
       .options {
-        font-size: 9pt;
-        position: absolute;
-        right: 15px;
-        bottom: 2px;
+        .anonymous {
+          position: absolute;
+          right: 17px;
+          bottom: 2px;
+        }
       }
     }
   }
