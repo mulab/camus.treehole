@@ -20,9 +20,16 @@ module.exports = function (app, callback) {
   console.log(nconf.get('root'));
   app.set('views', path.join(nconf.get('root'), 'views'));
   app.set('view engine', 'html');
-  swig.setDefaults({ loader: swig.loaders.fs(path.join(nconf.get('root'), 'views')) });
-  swig.setDefaults({ cache: nconf.get('debug') ? false: 'memory' });
-  app.set('view cache', ! nconf.get('debug'));
+  swig.setDefaults({
+    loader: swig.loaders.fs(path.join(nconf.get('root'), 'views')),
+    cache: nconf.get('debug') ? false: 'memory',
+    locals: {
+      currentTime: function () {
+        return (new Date()).toString();
+      }
+    }
+  });
+  app.set('view cache', !nconf.get('debug'));
 
   // sass engine setup
   var sassMiddleware = require('node-sass-middleware');
