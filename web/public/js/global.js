@@ -1,5 +1,6 @@
 'use strict';
 $(function() {
+  var serverTime = moment($('#server-time').html());
   var timeFormatter = function (timeString) {
     moment.locale('zh-cn', {
       calendar: {
@@ -28,12 +29,11 @@ $(function() {
     });
 
     var time = moment(timeString);
-    if (moment().diff(time, 'hours', true) <= 1) {
-      return time.fromNow();
+    if (serverTime.diff(time, 'hours', true) <= 1) {
+      return time.from(serverTime);
     } else {
       return time.calendar();
     }
-
   };
 
   $('span.time-need-format').each(function () {
